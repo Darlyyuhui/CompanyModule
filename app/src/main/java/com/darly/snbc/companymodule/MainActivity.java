@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity implements TextEditSupernatantLis
     @Override
     protected void loadData() {
         id_main_radio_text_edit.setSelected(true);
-        id_main_radio_text_edit_view.setRadioGroupPostion(SuperNatantEnum.RADIODOWN);
     }
 
     @Override
@@ -61,20 +60,32 @@ public class MainActivity extends BaseActivity implements TextEditSupernatantLis
         switch (checkedId) {
             case R.id.id_main_radio_text_edit:
                 id_main_radio_text_edit.setSelected(true);
+                id_main_radio_text_down.setSelected(false);
+                id_main_radio_text_left.setSelected(false);
+                id_main_radio_text_right.setSelected(false);
                 id_main_radio_text_edit_view.setRadioGroupPostion(SuperNatantEnum.RADIOTOP);
                 id_main_radio_text_edit_view.setVisibility(View.VISIBLE);
                 break;
             case R.id.id_main_radio_text_down:
+                id_main_radio_text_edit.setSelected(false);
                 id_main_radio_text_down.setSelected(true);
+                id_main_radio_text_left.setSelected(false);
+                id_main_radio_text_right.setSelected(false);
                 id_main_radio_text_edit_view.setRadioGroupPostion(SuperNatantEnum.RADIODOWN);
                 id_main_radio_text_edit_view.setVisibility(View.VISIBLE);
                 break;
             case R.id.id_main_radio_text_left:
+                id_main_radio_text_edit.setSelected(false);
+                id_main_radio_text_down.setSelected(false);
                 id_main_radio_text_left.setSelected(true);
+                id_main_radio_text_right.setSelected(false);
                 id_main_radio_text_edit_view.setRadioGroupPostion(SuperNatantEnum.RADIOLEFT);
                 id_main_radio_text_edit_view.setVisibility(View.VISIBLE);
                 break;
             case R.id.id_main_radio_text_right:
+                id_main_radio_text_edit.setSelected(false);
+                id_main_radio_text_down.setSelected(false);
+                id_main_radio_text_left.setSelected(false);
                 id_main_radio_text_right.setSelected(true);
                 id_main_radio_text_edit_view.setRadioGroupPostion(SuperNatantEnum.RADIORIGHT);
                 id_main_radio_text_edit_view.setVisibility(View.VISIBLE);

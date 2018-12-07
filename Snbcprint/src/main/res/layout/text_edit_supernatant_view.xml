@@ -3,15 +3,13 @@
     android:id="@+id/id_supernatant_relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#a11edc"
     android:padding="4dp">
 
 
     <FrameLayout
         android:id="@+id/id_supernatant_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eeeeee"/>
+        android:layout_height="match_parent"/>
 
     <RadioGroup
         android:id="@+id/id_supernatant_radiogroup"
