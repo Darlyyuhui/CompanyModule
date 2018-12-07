@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/id_main_edit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#000000" />
+
+
+    <RadioGroup
+        android:id="@+id/id_main_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <RadioButton
+            android:id="@+id/id_main_radio_text_edit"
+            style="@style/SelectRadioButton"
+            android:text="文字上"
+            android:drawableTop="@drawable/dr_textedit_select" />
+
+        <RadioButton
+            android:id="@+id/id_main_radio_text_down"
+            style="@style/SelectRadioButton"
+            android:text="下"
+            android:drawableTop="@drawable/dr_textedit_select" />
+
+        <RadioButton
+            android:id="@+id/id_main_radio_text_left"
+            style="@style/SelectRadioButton"
+            android:text="左"
+            android:drawableTop="@drawable/dr_textedit_select" />
+
+        <RadioButton
+            android:id="@+id/id_main_radio_text_right"
+            style="@style/SelectRadioButton"
+            android:text="右"
+            android:drawableTop="@drawable/dr_textedit_select" />
+
+    </RadioGroup>
+
+    <com.darly.snbc.widget.textedit.TextEditSupernatantView
+        android:id="@+id/id_main_radio_text_edit_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
