@@ -1,4 +1,4 @@
-package com.darly.snbc.snbcprint.font;
+package com.darly.snbc.snbcprint.common;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -9,7 +9,7 @@ import android.graphics.Typeface;
  */
 public class TypefaceCreat {
 
-    public Typeface getTypeface(Context context, String name) {
+    public static Typeface getTypeface(Context context, String name) {
         switch (name){
             case "方正卡通简体":
                 name="fangzhengkatongjianti";

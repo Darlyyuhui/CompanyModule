@@ -14,8 +14,6 @@ public class FontRecover {
 
     private String fontName;
 
-    private int fontid;
-
     private Typeface typeface;
 
     public String getFontName() {
@@ -24,14 +22,6 @@ public class FontRecover {
 
     public void setFontName(String fontName) {
         this.fontName = fontName;
-    }
-
-    public int getFontid() {
-        return fontid;
-    }
-
-    public void setFontid(int fontid) {
-        this.fontid = fontid;
     }
 
     public Typeface getTypeface() {

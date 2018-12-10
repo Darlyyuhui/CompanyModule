@@ -1,4 +1,4 @@
-package com.darly.snbc.snbcprint.font;
+package com.darly.snbc.snbcprint.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.darly.snbc.snbcprint.R;
+import com.darly.snbc.snbcprint.bean.FontRecover;
+import com.darly.snbc.snbcprint.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -15,11 +17,17 @@ import java.util.List;
  * Created by maxiao on 2018/10/19.
  */
 public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHolder> {
-    private List<String> mDatas;
+    private List<FontRecover> mDatas;
     private OnItemClickListener onItemClickListener;
 
-    public TextFontAdapter(List<String> data) {
+    public TextFontAdapter(List<FontRecover> data) {
         this.mDatas = data;
+    }
+
+
+    public void setmDatas(List<FontRecover> mDatas) {
+        this.mDatas = mDatas;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -31,19 +39,26 @@ public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-        viewHolder.title.setText(mDatas.get(position));
+        if (mDatas == null) {
+            return;
+        }
+        final FontRecover recover = mDatas.get(position);
+        if (recover == null) {
+            return;
+        }
+        viewHolder.title.setText(recover.getFontName());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //item 点击事件
-                onItemClickListener.onItemClick(viewHolder.title, position);
+                onItemClickListener.onItemClick(recover.getTypeface(), position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDatas == null ? 0 : mDatas.size();
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {

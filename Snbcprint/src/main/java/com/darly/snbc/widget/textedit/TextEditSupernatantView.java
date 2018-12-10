@@ -22,11 +22,10 @@ import android.widget.RelativeLayout;
 
 import com.darly.snbc.snbcprint.R;
 import com.darly.snbc.snbcprint.bean.FontRecover;
-import com.darly.snbc.snbcprint.font.TextFontCallBack;
-import com.darly.snbc.snbcprint.font.TextFontFragment;
-import com.darly.snbc.snbcprint.fragment.NatantFragment;
-import com.darly.snbc.snbcprint.fragment.SnbcPrintFragment;
+import com.darly.snbc.snbcprint.fragment.BaseFontFragment;
+import com.darly.snbc.snbcprint.fragment.font.TextFontFragment;
 import com.darly.snbc.snbcprint.listener.TextEditSupernatantListener;
+import com.darly.snbc.snbcprint.listener.TextFontListener;
 
 import java.util.List;
 
@@ -51,14 +50,13 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
     private RadioButton id_supernatant_italic;
 
 
-    private  FragmentManager fm;
+    private FragmentManager fm;
 
     private TextEditSupernatantListener textEditSupernatantListener;
 
     //字体布局
-    private SnbcPrintFragment natantFragment;
+    private BaseFontFragment natantFragment;
 
-    private TextFontFragment textFontFragment;
 
     public TextEditSupernatantView(Context context) {
         super(context);
@@ -108,25 +106,24 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
         id_supernatant_italic = findViewById(R.id.id_supernatant_italic);
 
 
-        fm = ((FragmentActivity)context).getSupportFragmentManager();
+        fm = ((FragmentActivity) context).getSupportFragmentManager();
 
-        natantFragment = new NatantFragment();
-        textFontFragment = new TextFontFragment();
+        natantFragment = new TextFontFragment();
         initListener();
     }
 
     //监听
     private void initListener() {
         id_supernatant_radiogroup.setOnCheckedChangeListener(this);
-        textFontFragment.setFont(new TextFontCallBack() {
+        natantFragment.setFont(new TextFontListener() {
             @Override
             public void getTypeface(Typeface typeface) {
-                if (textEditSupernatantListener!=null){
+                if (textEditSupernatantListener != null) {
                     FontRecover recover = new FontRecover();
                     recover.setTypeface(typeface);
                     textEditSupernatantListener.onFontSelect(recover);
-                }else {
-                    Log.i("","监听未初始化，请初始化");
+                } else {
+                    Log.i("", "监听未初始化，请初始化");
                 }
             }
         });
@@ -174,12 +171,14 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
         return this;
     }
 
-    /** 用户自定义字体布局，传递到这里，必须是一个Fragment
+    /**
+     * 用户自定义字体布局，传递到这里，必须是一个Fragment
+     *
      * @param fontFragment 字体布局
      * @return 返回本界面对象
      */
-    public TextEditSupernatantView setFontFragment(SnbcPrintFragment fontFragment){
-        if (fontFragment == null){
+    public TextEditSupernatantView setFontFragment(BaseFontFragment fontFragment) {
+        if (fontFragment == null) {
             //用户布局为空
             return null;
         }
@@ -189,17 +188,18 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
 
     /**
      * 用户使用默认布局，并传递参数进行整体布局初始化操作
+     *
      * @param backs 背景参数列表传递
      * @param fonts 字体对象列表传递
      * @return 返回类型本身可以直接进行链接操作
      */
-    public TextEditSupernatantView setInitData(List<Integer> backs,List<FontRecover> fonts){
+    public TextEditSupernatantView setInitData(List<Integer> backs, List<FontRecover> fonts) {
         //初始化背景界面
-        if (backs!=null&&backs.size()>0){
+        if (backs != null && backs.size() > 0) {
 
         }
         //初始化字体界面
-        if (fonts!=null&&fonts.size()>0){
+        if (fonts != null && fonts.size() > 0) {
             natantFragment.setFontData(fonts);
         }
         return this;
@@ -208,6 +208,7 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
 
     /**
      * 根据传递的位置信息，进行样式修改
+     *
      * @param type 枚举
      * @return 返回类型本身可以直接进行链接操作
      */
@@ -259,11 +260,10 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
                 break;
         }
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.id_supernatant_frame, textFontFragment);
+        ft.replace(R.id.id_supernatant_frame, natantFragment);
         ft.commit();
         return this;
     }
-
 
 
 }

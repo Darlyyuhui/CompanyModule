@@ -3,6 +3,7 @@ package com.darly.snbc.snbcprint.fragment;
 import android.support.v4.app.Fragment;
 
 import com.darly.snbc.snbcprint.bean.FontRecover;
+import com.darly.snbc.snbcprint.listener.TextFontListener;
 
 import java.util.List;
 
@@ -14,11 +15,9 @@ import java.util.List;
  * 公司：山东新北洋信息技术股份有限公司西安分公司
  * 邮箱：zhangyuhui@newbeiyang.com
  */
-public abstract class SnbcPrintFragment extends Fragment {
+public abstract class BaseFontFragment extends Fragment {
 
+    public abstract void setFontData(List<FontRecover> fontData);
 
-    public void setFontData(List<FontRecover> fontData){
-
-    }
-
+    public abstract void setFont(TextFontListener callBack);
 }
