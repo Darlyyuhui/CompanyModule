@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,12 +19,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.darly.snbc.observer.SupernatantCfg;
 import com.darly.snbc.snbcprint.R;
+import com.darly.snbc.snbcprint.bean.AlignmentThickness;
 import com.darly.snbc.snbcprint.bean.FontRecover;
-import com.darly.snbc.snbcprint.fragment.BaseFontFragment;
+import com.darly.snbc.snbcprint.bean.FontSizeSpacing;
+import com.darly.snbc.snbcprint.common.SuperNatantEnum;
+import com.darly.snbc.snbcprint.fragment.BaseTextFragment;
+import com.darly.snbc.snbcprint.fragment.align.TextAlignFragment;
+import com.darly.snbc.snbcprint.fragment.bg.TextBgFragment;
 import com.darly.snbc.snbcprint.fragment.font.TextFontFragment;
+import com.darly.snbc.snbcprint.fragment.spacing.TextSpacingFragment;
+import com.darly.snbc.snbcprint.listener.TextAlignListener;
+import com.darly.snbc.snbcprint.listener.TextBackgroundListener;
 import com.darly.snbc.snbcprint.listener.TextEditSupernatantListener;
 import com.darly.snbc.snbcprint.listener.TextFontListener;
+import com.darly.snbc.snbcprint.listener.TextSpacingListener;
 
 import java.util.List;
 
@@ -55,8 +64,11 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
     private TextEditSupernatantListener textEditSupernatantListener;
 
     //字体布局
-    private BaseFontFragment natantFragment;
+    private BaseTextFragment fontFragment;
 
+    private BaseTextFragment bgFragment;
+    private BaseTextFragment alignFragment;
+    private BaseTextFragment spacingFragment;
 
     public TextEditSupernatantView(Context context) {
         super(context);
@@ -84,11 +96,8 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.text_edit_supernatant_view, this, true);
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
         // 屏幕宽度（像素）
-        width = dm.widthPixels;
+        width = SupernatantCfg.getWidth();
         //float density = dm.density;         // 屏幕密度（0.75 / 1.0 / 1.5）
         // 屏幕宽度算法:屏幕宽度（像素）/屏幕密度
         //int screenWidth = (int) (width / density);  // 屏幕宽度(dp)
@@ -107,15 +116,98 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
 
 
         fm = ((FragmentActivity) context).getSupportFragmentManager();
-
-        natantFragment = new TextFontFragment();
+        fontFragment = new TextFontFragment();
+        bgFragment = new TextBgFragment();
+        alignFragment = new TextAlignFragment();
+        spacingFragment = new TextSpacingFragment();
         initListener();
     }
 
     //监听
     private void initListener() {
         id_supernatant_radiogroup.setOnCheckedChangeListener(this);
-        natantFragment.setFont(new TextFontListener() {
+        if (fontFragment != null) {
+            fontFragment.setFontListener(new TextFontListener() {
+                @Override
+                public void getTypeface(Typeface typeface) {
+                    if (textEditSupernatantListener != null) {
+                        FontRecover recover = new FontRecover();
+                        recover.setTypeface(typeface);
+                        textEditSupernatantListener.onFontSelect(recover);
+                    } else {
+                        Log.i("", "监听未初始化，请初始化");
+                    }
+                }
+            });
+        }
+
+        id_supernatant_bubble.setSelected(true);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.id_supernatant_frame, bgFragment);
+        ft.commit();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (id_supernatant_bubble.getId() == checkedId) {
+            //Fragment
+            id_supernatant_bubble.setSelected(true);
+            id_supernatant_font.setSelected(false);
+            id_supernatant_align.setSelected(false);
+            id_supernatant_italic.setSelected(false);
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.id_supernatant_frame, bgFragment);
+            ft.commit();
+        }
+        if (id_supernatant_font.getId() == checkedId) {
+            //Fragment
+            id_supernatant_bubble.setSelected(false);
+            id_supernatant_font.setSelected(true);
+            id_supernatant_align.setSelected(false);
+            id_supernatant_italic.setSelected(false);
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.id_supernatant_frame, fontFragment);
+            ft.commit();
+        }
+        if (id_supernatant_align.getId() == checkedId) {
+            //Fragment
+            id_supernatant_bubble.setSelected(false);
+            id_supernatant_font.setSelected(false);
+            id_supernatant_align.setSelected(true);
+            id_supernatant_italic.setSelected(false);
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.id_supernatant_frame, alignFragment);
+            ft.commit();
+        }
+        if (id_supernatant_italic.getId() == checkedId) {
+            //Fragment
+            id_supernatant_bubble.setSelected(false);
+            id_supernatant_font.setSelected(false);
+            id_supernatant_align.setSelected(false);
+            id_supernatant_italic.setSelected(true);
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.id_supernatant_frame, spacingFragment);
+            ft.commit();
+        }
+    }
+
+    //第一步：设置接口监听
+    public void setTextEditSupernatantListener(TextEditSupernatantListener textEditSupernatantListener) {
+        this.textEditSupernatantListener = textEditSupernatantListener;
+    }
+
+    /**
+     * 自定义字体界面
+     *
+     * @param fontFragment 字体布局
+     */
+    public void setFontFragment(BaseTextFragment fontFragment) {
+        if (fontFragment == null) {
+            //用户布局为空
+            return;
+        }
+        fontFragment = fontFragment;
+        fontFragment.setFontListener(new TextFontListener() {
             @Override
             public void getTypeface(Typeface typeface) {
                 if (textEditSupernatantListener != null) {
@@ -129,80 +221,23 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
         });
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        View viewById = group.findViewById(checkedId);
-        if (!viewById.isPressed()) {
-            return;
-        }
-        if (id_supernatant_bubble.getId() == checkedId) {
-            //Fragment
-            id_supernatant_bubble.setSelected(true);
-            id_supernatant_font.setSelected(false);
-            id_supernatant_align.setSelected(false);
-            id_supernatant_italic.setSelected(false);
-        }
-        if (id_supernatant_font.getId() == checkedId) {
-            //Fragment
-            id_supernatant_bubble.setSelected(false);
-            id_supernatant_font.setSelected(true);
-            id_supernatant_align.setSelected(false);
-            id_supernatant_italic.setSelected(false);
-        }
-        if (id_supernatant_align.getId() == checkedId) {
-            //Fragment
-            id_supernatant_bubble.setSelected(false);
-            id_supernatant_font.setSelected(false);
-            id_supernatant_align.setSelected(true);
-            id_supernatant_italic.setSelected(false);
-        }
-        if (id_supernatant_italic.getId() == checkedId) {
-            //Fragment
-            id_supernatant_bubble.setSelected(false);
-            id_supernatant_font.setSelected(false);
-            id_supernatant_align.setSelected(false);
-            id_supernatant_italic.setSelected(true);
-        }
-    }
-
-
-    public TextEditSupernatantView setTextEditSupernatantListener(TextEditSupernatantListener textEditSupernatantListener) {
-        this.textEditSupernatantListener = textEditSupernatantListener;
-        return this;
-    }
-
-    /**
-     * 用户自定义字体布局，传递到这里，必须是一个Fragment
-     *
-     * @param fontFragment 字体布局
-     * @return 返回本界面对象
-     */
-    public TextEditSupernatantView setFontFragment(BaseFontFragment fontFragment) {
-        if (fontFragment == null) {
-            //用户布局为空
-            return null;
-        }
-        natantFragment = fontFragment;
-        return this;
-    }
-
     /**
      * 用户使用默认布局，并传递参数进行整体布局初始化操作
      *
      * @param backs 背景参数列表传递
      * @param fonts 字体对象列表传递
-     * @return 返回类型本身可以直接进行链接操作
      */
-    public TextEditSupernatantView setInitData(List<Integer> backs, List<FontRecover> fonts) {
+    public void setInitData(List<Integer> backs, List<FontRecover> fonts) {
         //初始化背景界面
         if (backs != null && backs.size() > 0) {
 
         }
         //初始化字体界面
         if (fonts != null && fonts.size() > 0) {
-            natantFragment.setFontData(fonts);
+            if (fontFragment != null) {
+                fontFragment.setFontData(fonts);
+            }
         }
-        return this;
     }
 
 
@@ -210,12 +245,11 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
      * 根据传递的位置信息，进行样式修改
      *
      * @param type 枚举
-     * @return 返回类型本身可以直接进行链接操作
      */
-    public TextEditSupernatantView setRadioGroupPostion(SuperNatantEnum type) {
+    public void setRadioGroupPostion(SuperNatantEnum type) {
         if (id_supernatant_radiogroup == null || id_supernatant_frame == null) {
             //未初始化控件
-            return null;
+            return;
         }
         switch (type) {
             case RADIOTOP:
@@ -259,11 +293,80 @@ public class TextEditSupernatantView extends RelativeLayout implements RadioGrou
                 id_supernatant_frame.setLayoutParams(rightView);
                 break;
         }
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.id_supernatant_frame, natantFragment);
-        ft.commit();
-        return this;
     }
 
+    /**
+     * 自定义背景界面
+     *
+     * @param fragment 字体布局
+     */
+    public void setBackgroundFragment(BaseTextFragment fragment) {
+        if (fragment == null) {
+            //用户布局为空
+            return;
+        }
+        bgFragment = fragment;
+        bgFragment.setBgListener(new TextBackgroundListener() {
+            @Override
+            public void getBackGround(int resID) {
+                if (textEditSupernatantListener != null) {
+                    textEditSupernatantListener.onBackGroundLocal(resID);
+                } else {
+                    Log.i("", "监听未初始化，请初始化");
+                }
+            }
 
+        });
+
+        id_supernatant_bubble.setSelected(true);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.id_supernatant_frame, bgFragment);
+        ft.commit();
+    }
+
+    /**
+     * 自定义对齐界面
+     *
+     * @param fragment 字体布局
+     */
+    public void setAlignFragment(BaseTextFragment fragment) {
+        if (fragment == null) {
+            //用户布局为空
+            return;
+        }
+        alignFragment = fragment;
+        alignFragment.setAlignListener(new TextAlignListener() {
+            @Override
+            public void getAlign(AlignmentThickness alignmentThickness) {
+                if (textEditSupernatantListener != null) {
+                    textEditSupernatantListener.onAlignmentThickness(alignmentThickness);
+                } else {
+                    Log.i("", "监听未初始化，请初始化");
+                }
+            }
+        });
+    }
+
+    /**
+     * 自定义样式界面
+     *
+     * @param fragment 字体布局
+     */
+    public void setSpacingFragment(BaseTextFragment fragment) {
+        if (fragment == null) {
+            //用户布局为空
+            return;
+        }
+        spacingFragment = fragment;
+        spacingFragment.setSpacingListener(new TextSpacingListener() {
+            @Override
+            public void getSpacing(FontSizeSpacing sizeSpacing) {
+                if (textEditSupernatantListener != null) {
+                    textEditSupernatantListener.onFontSizeSpacing(sizeSpacing);
+                } else {
+                    Log.i("", "监听未初始化，请初始化");
+                }
+            }
+        });
+    }
 }

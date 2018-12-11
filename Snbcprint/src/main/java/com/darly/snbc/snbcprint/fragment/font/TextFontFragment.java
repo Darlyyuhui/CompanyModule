@@ -2,21 +2,17 @@ package com.darly.snbc.snbcprint.fragment.font;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.darly.snbc.snbcprint.R;
 import com.darly.snbc.snbcprint.adapter.TextFontAdapter;
 import com.darly.snbc.snbcprint.bean.FontRecover;
 import com.darly.snbc.snbcprint.common.TypefaceCreat;
-import com.darly.snbc.snbcprint.fragment.BaseFontFragment;
+import com.darly.snbc.snbcprint.fragment.BaseTextFragment;
 import com.darly.snbc.snbcprint.listener.OnItemClickListener;
 import com.darly.snbc.snbcprint.listener.TextFontListener;
 
@@ -24,28 +20,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 文字字体界面
  * Created by maxiao on 2018/10/19.
  */
-public class TextFontFragment extends BaseFontFragment {
+public class TextFontFragment extends BaseTextFragment {
     private RecyclerView fontRv;
     private TextFontAdapter textFontAdapter;
     private TextFontListener callBack;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int root() {
+        return R.layout.fragment_text_font;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_text_font, null);
-        fontRv = v.findViewById(R.id.fontRv);
+    protected void initView(Bundle savedInstanceState) {
+        fontRv = rootView.findViewById(R.id.fontRv);
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         fontRv.setLayoutManager(manager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
+    }
 
+    @Override
+    protected void loadData() {
         final List<String> list = new ArrayList<>();
         list.add("方正卡通简体");
         list.add("楷体");
@@ -77,7 +75,11 @@ public class TextFontFragment extends BaseFontFragment {
 
             }
         });
-        return v;
+    }
+
+    @Override
+    protected void initListener() {
+
     }
 
     @Override
@@ -86,7 +88,7 @@ public class TextFontFragment extends BaseFontFragment {
     }
 
     @Override
-    public void setFont(TextFontListener callBack) {
+    public void setFontListener(TextFontListener callBack) {
         this.callBack = callBack;
     }
 }

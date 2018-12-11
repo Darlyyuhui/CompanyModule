@@ -1,4 +1,4 @@
-package com.darly.snbc.widget.textedit;
+package com.darly.snbc.snbcprint.common;
 
 /**
  * 针对文本编辑库进行界面分布管理
@@ -17,4 +17,13 @@ public enum  SuperNatantEnum {
     RADIOLEFT,
     //选择列表处于右部
     RADIORIGHT,
+    //2018/12/10增加界面筛选
+    //自定义背景View
+    BACKGROUND,
+    //自定义字体View
+    FONT,
+    //自定义对齐View
+    ALIGNMENT,
+    //自定义样式View
+    SIZESPACING,
 }

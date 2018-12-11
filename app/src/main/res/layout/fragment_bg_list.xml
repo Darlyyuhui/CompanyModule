@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp">
+    >
 
-
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_fragment_bg_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/snbcprint" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

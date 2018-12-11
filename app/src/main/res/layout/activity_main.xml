@@ -7,53 +7,82 @@
     android:orientation="vertical">
 
 
-    <EditText
-        android:id="@+id/id_main_edit"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="#000000" />
+        android:layout_weight="1">
 
+        <ScrollView
+            android:id="@+id/id_main_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/id_main_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <EditText
+                    android:id="@+id/id_main_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+        </ScrollView>
+        <ImageView
+            android:id="@+id/id_main_edit_view_gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:src="@drawable/dr_down_select"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <RadioGroup
         android:id="@+id/id_main_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/dr_radiogroup_bg"
         android:orientation="horizontal"
         android:padding="4dp">
 
         <RadioButton
             android:id="@+id/id_main_radio_text_edit"
             style="@style/SelectRadioButton"
-            android:text="文字上"
-            android:drawableTop="@drawable/dr_textedit_select" />
+            android:drawableTop="@drawable/dr_textedit_select"
+            android:text="文字上" />
 
         <RadioButton
             android:id="@+id/id_main_radio_text_down"
             style="@style/SelectRadioButton"
-            android:text="下"
-            android:drawableTop="@drawable/dr_textedit_select" />
+            android:drawableTop="@drawable/dr_textedit_select"
+            android:text="下" />
 
         <RadioButton
             android:id="@+id/id_main_radio_text_left"
             style="@style/SelectRadioButton"
-            android:text="左"
-            android:drawableTop="@drawable/dr_textedit_select" />
+            android:drawableTop="@drawable/dr_textedit_select"
+            android:text="左" />
 
         <RadioButton
             android:id="@+id/id_main_radio_text_right"
             style="@style/SelectRadioButton"
-            android:text="右"
-            android:drawableTop="@drawable/dr_textedit_select" />
+            android:drawableTop="@drawable/dr_textedit_select"
+            android:text="右" />
 
     </RadioGroup>
 
-    <com.darly.snbc.widget.textedit.TextEditSupernatantView
-        android:id="@+id/id_main_radio_text_edit_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+    <RelativeLayout
+        android:id="@+id/id_main_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
