@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.darly.snbc.snbcprint.R;
+import com.darly.snbc.observer.SupernatantCfg;
 
 import java.util.List;
 
@@ -22,16 +22,10 @@ public class TextBackgroundAdapter extends RecyclerView.Adapter<TextBackgroundAd
         this.mDatas = data;
     }
 
-
-    public void setmDatas(List<Integer> mDatas) {
-        this.mDatas = mDatas;
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_text_font, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_fragment_bg, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -40,7 +34,7 @@ public class TextBackgroundAdapter extends RecyclerView.Adapter<TextBackgroundAd
         if (mDatas == null) {
             return;
         }
-        viewHolder.title.setBackgroundResource(mDatas.get(position));
+        viewHolder.id_item_fragment_bg_iv.setImageResource(mDatas.get(position));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,11 +54,12 @@ public class TextBackgroundAdapter extends RecyclerView.Adapter<TextBackgroundAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
+        public final ImageView id_item_fragment_bg_iv;
 
         public ViewHolder(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.title);
+            id_item_fragment_bg_iv = (ImageView) v.findViewById(R.id.id_item_fragment_bg_iv);
+            id_item_fragment_bg_iv.setLayoutParams(new ViewGroup.LayoutParams(SupernatantCfg.getWidth()/4,SupernatantCfg.getWidth()/4));
         }
     }
 

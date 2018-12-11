@@ -1,5 +1,6 @@
 package com.darly.snbc.companymodule;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,13 +16,11 @@ import android.widget.Toast;
 
 import com.darly.snbc.base.BaseActivity;
 import com.darly.snbc.snbcprint.TextEditManager;
-import com.darly.snbc.snbcprint.bean.AlignmentThickness;
-import com.darly.snbc.snbcprint.bean.FontRecover;
-import com.darly.snbc.snbcprint.bean.FontSizeSpacing;
+import com.darly.snbc.snbcprint.bean.EditSupernatant;
 import com.darly.snbc.snbcprint.common.SuperNatantEnum;
-import com.darly.snbc.snbcprint.listener.OnDoubleClickListener;
 import com.darly.snbc.snbcprint.listener.TextEditSupernatantListener;
-import com.darly.snbc.widget.textedit.TextEditBackgroundView;
+import com.darly.snbc.widget.text.OnDoubleClickListener;
+import com.darly.snbc.widget.text.TextEditBackgroundView;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, TextEditSupernatantListener, RadioGroup.OnCheckedChangeListener {
 
@@ -41,6 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private TextView currentCheckView;
 
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void loadData() {
+
         handler = new Handler();
         manager = new TextEditManager(BuildConfig.DEBUG, this, getPackageName());
         manager.init(id_main_parent);
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    @Override
+    //修改背景
     public void onBackGroundLocal(int resId) {
         if (resId != 0) {
             if (id_main_content.getChildCount() > 100) {
@@ -125,21 +126,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             });
         }
     }
-
-    @Override
-    public void onFontSelect(FontRecover font) {
+    //修改字体
+    public void onFontSelect(Typeface font) {
         if (currentCheckView != null) {
-            currentCheckView.setTypeface(font.getTypeface());
+            currentCheckView.setTypeface(font);
         }
     }
-
-    @Override
-    public void onAlignmentThickness(AlignmentThickness alignmentThickness) {
+    //修改对齐方式粗细
+    public void onAlignmentThickness(EditSupernatant alignmentThickness) {
 
     }
-
-    @Override
-    public void onFontSizeSpacing(FontSizeSpacing fontSizeSpacing) {
+    //修改间距字号
+    public void onFontSizeSpacing(EditSupernatant fontSizeSpacing) {
 
     }
 
@@ -181,4 +179,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
 
+    @Override
+    public void onSelectSupernatant(EditSupernatant supernatant, SuperNatantEnum type) {
+        switch (type) {
+            case NATANT_TEXTBACKGROUND:
+                onBackGroundLocal(supernatant.getResId());
+                break;
+            case NATANT_FONTRECOVER:
+                onFontSelect(supernatant.getTypeface());
+                break;
+            case NATANT_ALIGNMENTTHICKNESS:
+                onAlignmentThickness(supernatant);
+                break;
+            case NATANT_FONTSIZESPACING:
+                onFontSizeSpacing(supernatant);
+                break;
+            default:
+                break;
+        }
+    }
 }

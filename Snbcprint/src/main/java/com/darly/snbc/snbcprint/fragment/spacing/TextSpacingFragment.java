@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.darly.snbc.snbcprint.R;
-import com.darly.snbc.snbcprint.bean.FontSizeSpacing;
 import com.darly.snbc.snbcprint.fragment.BaseTextFragment;
-import com.darly.snbc.snbcprint.listener.TextSpacingListener;
-
-import java.util.List;
+import com.darly.snbc.snbcprint.listener.OnEditSupernatantListener;
 
 /**
  * 文字样式界面
@@ -20,7 +17,7 @@ import java.util.List;
  */
 public class TextSpacingFragment extends BaseTextFragment {
 
-    private TextSpacingListener textSpacingListener;
+    private OnEditSupernatantListener textSpacingListener;
 
     private TextView id_fragment_tv;
 
@@ -46,12 +43,7 @@ public class TextSpacingFragment extends BaseTextFragment {
     }
 
     @Override
-    public void setSpacingData(List<FontSizeSpacing> bgData) {
-        super.setSpacingData(bgData);
-    }
-
-    @Override
-    public void setSpacingListener(TextSpacingListener listener) {
+    public void setSpacingListener(OnEditSupernatantListener listener) {
         super.setSpacingListener(listener);
         textSpacingListener  = listener;
     }

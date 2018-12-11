@@ -8,15 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.darly.snbc.snbcprint.bean.AlignmentThickness;
-import com.darly.snbc.snbcprint.bean.FontRecover;
-import com.darly.snbc.snbcprint.bean.FontSizeSpacing;
-import com.darly.snbc.snbcprint.listener.TextAlignListener;
-import com.darly.snbc.snbcprint.listener.TextBackgroundListener;
-import com.darly.snbc.snbcprint.listener.TextFontListener;
-import com.darly.snbc.snbcprint.listener.TextSpacingListener;
-
-import java.util.List;
+import com.darly.snbc.snbcprint.listener.OnEditSupernatantListener;
 
 /**
  * 基础Fragment类，定义操作接口方法
@@ -86,30 +78,18 @@ public abstract class BaseTextFragment extends Fragment {
 
 
     //字体
-    public void setFontData(List<FontRecover> data) {
-    }
-
-    public void setFontListener(TextFontListener listener) {
+    public void setFontListener(OnEditSupernatantListener listener) {
     }
 
     //背景
-    public void setBgData(List<Integer> data) {
-    }
-
-    public void setBgListener(TextBackgroundListener listener) {
+    public void setBgListener(OnEditSupernatantListener listener) {
     }
 
     //对齐
-    public void setAlignData(List<AlignmentThickness> data) {
-    }
-
-    public void setAlignListener(TextAlignListener listener) {
+    public void setAlignListener(OnEditSupernatantListener listener) {
     }
 
     //样式
-    public void setSpacingData(List<FontSizeSpacing> data) {
-    }
-
-    public void setSpacingListener(TextSpacingListener listener) {
+    public void setSpacingListener(OnEditSupernatantListener listener) {
     }
 }

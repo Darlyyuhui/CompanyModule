@@ -81,6 +81,7 @@ public class TextEditManager {
                 view.setSpacingFragment(fragment);
                 break;
         }
+        view.switchFragment(fragment).commit();
     }
 
 

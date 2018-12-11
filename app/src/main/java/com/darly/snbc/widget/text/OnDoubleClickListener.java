@@ -1,4 +1,4 @@
-package com.darly.snbc.snbcprint.listener;
+package com.darly.snbc.widget.text;
 
 
 import android.os.Handler;
@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
+ * 双击监听事件
  * 包名称：com.darly.snbc.companymodule
  * 作者：zhangyuhui 项目名称：CompanyModule
  * 日期：2018/12/10 17:45

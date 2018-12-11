@@ -1,4 +1,4 @@
-package com.darly.snbc.widget.textedit;
+package com.darly.snbc.widget.text;
 
 import android.content.Context;
 import android.os.Build;
@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.darly.snbc.companymodule.R;
 import com.darly.snbc.observer.SupernatantCfg;
-import com.darly.snbc.snbcprint.R;
 
 
 /**

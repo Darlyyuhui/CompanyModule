@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.darly.snbc.snbcprint.R;
-import com.darly.snbc.snbcprint.bean.AlignmentThickness;
 import com.darly.snbc.snbcprint.fragment.BaseTextFragment;
-import com.darly.snbc.snbcprint.listener.TextAlignListener;
-
-import java.util.List;
+import com.darly.snbc.snbcprint.listener.OnEditSupernatantListener;
 
 /**
  * 文字对齐界面
@@ -20,7 +17,7 @@ import java.util.List;
  */
 public class TextAlignFragment extends BaseTextFragment {
 
-    private TextAlignListener textAlignListener;
+    private OnEditSupernatantListener textAlignListener;
     private TextView id_fragment_tv;
 
 
@@ -47,12 +44,7 @@ public class TextAlignFragment extends BaseTextFragment {
 
 
     @Override
-    public void setAlignData(List<AlignmentThickness> bgData) {
-        super.setAlignData(bgData);
-    }
-
-    @Override
-    public void setAlignListener(TextAlignListener listener) {
+    public void setAlignListener(OnEditSupernatantListener listener) {
         super.setAlignListener(listener);
         textAlignListener = listener;
     }

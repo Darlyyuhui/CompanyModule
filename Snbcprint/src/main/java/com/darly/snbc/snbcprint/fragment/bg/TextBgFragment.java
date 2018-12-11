@@ -5,9 +5,7 @@ import android.widget.TextView;
 
 import com.darly.snbc.snbcprint.R;
 import com.darly.snbc.snbcprint.fragment.BaseTextFragment;
-import com.darly.snbc.snbcprint.listener.TextBackgroundListener;
-
-import java.util.List;
+import com.darly.snbc.snbcprint.listener.OnEditSupernatantListener;
 
 /**
  * 文字背景界面
@@ -19,7 +17,7 @@ import java.util.List;
  */
 public class TextBgFragment extends BaseTextFragment {
 
-    private TextBackgroundListener textBackgroundListener;
+    private OnEditSupernatantListener textBackgroundListener;
 
     private TextView id_fragment_tv;
 
@@ -45,11 +43,7 @@ public class TextBgFragment extends BaseTextFragment {
     }
 
     @Override
-    public void setBgData(List<Integer> bgData) {
-    }
-
-    @Override
-    public void setBgListener(TextBackgroundListener listener) {
+    public void setBgListener(OnEditSupernatantListener listener) {
         textBackgroundListener = listener;
     }
 }

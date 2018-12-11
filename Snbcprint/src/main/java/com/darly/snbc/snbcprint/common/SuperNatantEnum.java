@@ -9,6 +9,16 @@ package com.darly.snbc.snbcprint.common;
  * 邮箱：zhangyuhui@newbeiyang.com
  */
 public enum  SuperNatantEnum {
+    //背景参数修改
+    NATANT_TEXTBACKGROUND,
+    //字体参数修改
+    NATANT_FONTRECOVER,
+    //文本编辑浮层对齐粗细选择修改
+    NATANT_ALIGNMENTTHICKNESS,
+    //文本编辑浮层字号间距选择修改
+    NATANT_FONTSIZESPACING,
+
+
     //选择列表处于顶部
     RADIOTOP,
     //选择列表处于底部

@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.darly.snbc.snbcprint.R;
-import com.darly.snbc.snbcprint.bean.FontRecover;
-import com.darly.snbc.snbcprint.listener.OnItemClickListener;
+import com.darly.snbc.snbcprint.bean.EditSupernatant;
 
 import java.util.List;
 
@@ -17,18 +16,13 @@ import java.util.List;
  * Created by maxiao on 2018/10/19.
  */
 public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHolder> {
-    private List<FontRecover> mDatas;
-    private OnItemClickListener onItemClickListener;
+    private List<EditSupernatant> mDatas;
+    private OnShowItemClickListener onItemClickListener;
 
-    public TextFontAdapter(List<FontRecover> data) {
+    public TextFontAdapter(List<EditSupernatant> data) {
         this.mDatas = data;
     }
 
-
-    public void setmDatas(List<FontRecover> mDatas) {
-        this.mDatas = mDatas;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -42,7 +36,7 @@ public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHo
         if (mDatas == null) {
             return;
         }
-        final FontRecover recover = mDatas.get(position);
+        final EditSupernatant recover = mDatas.get(position);
         if (recover == null) {
             return;
         }
@@ -51,7 +45,7 @@ public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 //item 点击事件
-                onItemClickListener.onItemClick(recover.getTypeface(), position);
+                onItemClickListener.onItemClick(recover, position);
             }
         });
     }
@@ -61,7 +55,7 @@ public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHo
         return mDatas == null ? 0 : mDatas.size();
     }
 
-    public void setItemClickListener(OnItemClickListener itemClickListener) {
+    public void setItemClickListener(OnShowItemClickListener itemClickListener) {
         onItemClickListener = itemClickListener;
     }
 
@@ -72,6 +66,11 @@ public class TextFontAdapter extends RecyclerView.Adapter<TextFontAdapter.ViewHo
             super(v);
             title = (TextView) v.findViewById(R.id.title);
         }
+    }
+
+
+    public interface OnShowItemClickListener {
+        void onItemClick(EditSupernatant recover , int position);
     }
 
 }
