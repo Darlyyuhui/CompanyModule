@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.darly.snbc.companymodule.R;
-import com.darly.snbc.observer.SupernatantCfg;
+import com.newbeiyang.snbc.textlib.common.observer.SupernatantCfg;
 
 
 /**

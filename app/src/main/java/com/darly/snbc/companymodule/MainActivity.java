@@ -15,12 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.darly.snbc.base.BaseActivity;
-import com.darly.snbc.snbcprint.TextEditManager;
-import com.darly.snbc.snbcprint.bean.EditSupernatant;
-import com.darly.snbc.snbcprint.common.SuperNatantEnum;
-import com.darly.snbc.snbcprint.listener.TextEditSupernatantListener;
 import com.darly.snbc.widget.text.OnDoubleClickListener;
 import com.darly.snbc.widget.text.TextEditBackgroundView;
+import com.newbeiyang.snbc.textlib.TextEditManager;
+import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
+import com.newbeiyang.snbc.textlib.common.SuperNatantEnum;
+import com.newbeiyang.snbc.textlib.common.listener.TextEditSupernatantListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, TextEditSupernatantListener, RadioGroup.OnCheckedChangeListener {
 
@@ -71,7 +71,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         manager.setListener(this);
         id_main_radio_group.setOnCheckedChangeListener(this);
         id_main_edit_view_gone.setOnClickListener(this);
-        manager.setView(new BGFragment(), SuperNatantEnum.BACKGROUND);
     }
 
     @Override

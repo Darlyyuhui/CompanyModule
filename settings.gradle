@@ -1,1 +1,1 @@
-include ':app',  ':Snbcprint'
+include ':app', ':SnbcTextLib'
