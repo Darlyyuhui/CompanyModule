@@ -1,7 +1,6 @@
 package com.newbeiyang.snbc.textlib.ui.fragment;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.newbeiyang.snbc.textlib.R;
 import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
@@ -18,7 +17,6 @@ public class TextSpacingFragment extends BaseTextFragment {
 
     private OnEditSupernatantListener textSpacingListener;
 
-    private TextView id_fragment_tv;
 
     @Override
     protected int root() {
@@ -27,8 +25,6 @@ public class TextSpacingFragment extends BaseTextFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        id_fragment_tv = rootView.findViewById(R.id.id_fragment_tv);
-        id_fragment_tv.setText(getClass().getSimpleName());
     }
 
     @Override

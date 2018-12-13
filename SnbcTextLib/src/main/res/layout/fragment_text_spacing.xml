@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
-    <TextView
-        android:id="@+id/id_fragment_tv"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"/>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字号"
+            android:padding="10dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/id_supernatant_space_size_tab"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dr_font_bg_normal"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabMode="scrollable"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="行距"
+            android:padding="10dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/id_supernatant_space_lib_tab"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dr_font_bg_normal"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabMode="scrollable"/>
+
+    </LinearLayout>
+</ScrollView>

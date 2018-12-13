@@ -1,7 +1,6 @@
 package com.newbeiyang.snbc.textlib.ui.fragment;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.newbeiyang.snbc.textlib.R;
 import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
@@ -17,7 +16,6 @@ import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
 public class TextAlignFragment extends BaseTextFragment {
 
     private OnEditSupernatantListener textAlignListener;
-    private TextView id_fragment_tv;
 
 
     @Override
@@ -27,8 +25,6 @@ public class TextAlignFragment extends BaseTextFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        id_fragment_tv = rootView.findViewById(R.id.id_fragment_tv);
-        id_fragment_tv.setText(getClass().getSimpleName());
     }
 
     @Override
