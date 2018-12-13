@@ -69,13 +69,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         handler = new Handler();
         manager = new TextEditManager(BuildConfig.DEBUG, this, getPackageName());
-        manager.init(id_main_parent);
+
 
     }
 
     @Override
     protected void initListener() {
-        manager.setListener(this);
+        manager.init(id_main_parent).setListener(this);
         id_main_radio_group.setOnCheckedChangeListener(this);
         id_main_edit_view_gone.setOnClickListener(this);
     }
