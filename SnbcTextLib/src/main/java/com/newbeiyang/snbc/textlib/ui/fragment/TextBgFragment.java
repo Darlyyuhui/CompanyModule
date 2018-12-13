@@ -8,6 +8,7 @@ import com.newbeiyang.snbc.textlib.R;
 import com.newbeiyang.snbc.textlib.adapter.TextBackgroundAdapter;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
 import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
+import com.newbeiyang.snbc.textlib.common.log.SuperNatantLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class TextBgFragment extends BaseTextFragment {
 
         adapter = new TextBackgroundAdapter(data);
         id_fragment_bg_rv.setAdapter(adapter);
+        SuperNatantLog.d(getClass().getSimpleName() + "界面UI初始化完成");
     }
 
     @Override
@@ -65,6 +67,7 @@ public class TextBgFragment extends BaseTextFragment {
             public void onItemClick(int resId, int position) {
                 EditSupernatant editSupernatant = new EditSupernatant();
                 editSupernatant.setResId(resId);
+                SuperNatantLog.d(getClass().getSimpleName() + "启动回调方案");
                 textBackgroundListener.getBackGround(editSupernatant);
             }
         });
@@ -75,6 +78,11 @@ public class TextBgFragment extends BaseTextFragment {
         super.setBgListener(listener);
         textBackgroundListener = listener;
     }
+
+    @Override
+    public void resetNatant() {
+    }
+
     @Override
     public void updateBG(List<EditSupernatant> datas) {
         super.updateBG(datas);

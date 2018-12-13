@@ -93,7 +93,7 @@ public abstract class BaseTextFragment extends Fragment {
     }
 
     //对齐
-    public void updateAlign() {
+    public void updateAlign(List<EditSupernatant> fontSize, List<EditSupernatant> spacing) {
     }
     public void setAlignListener(OnEditSupernatantListener listener) {
     }
@@ -104,5 +104,5 @@ public abstract class BaseTextFragment extends Fragment {
     public void setSpacingListener(OnEditSupernatantListener listener) {
     }
 
-
+    public abstract void resetNatant();
 }

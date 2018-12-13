@@ -35,25 +35,38 @@ public class EditSupernatant {
     //-1左移动。1右移动
     private int move;
     //样式
+    //字号名称（五号）
+    private String sizeName;
     //字号
     private int size;
-    //间距
-    private float lineSpacingExtra;
     //行距
     private float lineSpacingMultiplier;
 
     public EditSupernatant() {
     }
+
     //背景初始化
     public EditSupernatant(String bgName, int resId, int resShow) {
         this.bgName = bgName;
         this.resId = resId;
         this.resShow = resShow;
     }
+
     //字体初始化
     public EditSupernatant(String fontName, Typeface typeface) {
         this.fontName = fontName;
         this.typeface = typeface;
+    }
+
+    //字号初始化
+    public EditSupernatant(String sizeName, int size) {
+        this.sizeName = sizeName;
+        this.size = size;
+    }
+
+    //间距初始化
+    public EditSupernatant(float lineSpacingMultiplier) {
+        this.lineSpacingMultiplier = lineSpacingMultiplier;
     }
 
     public String getBgName() {
@@ -144,19 +157,35 @@ public class EditSupernatant {
         this.size = size;
     }
 
-    public float getLineSpacingExtra() {
-        return lineSpacingExtra;
-    }
-
-    public void setLineSpacingExtra(float lineSpacingExtra) {
-        this.lineSpacingExtra = lineSpacingExtra;
-    }
-
     public float getLineSpacingMultiplier() {
         return lineSpacingMultiplier;
     }
 
     public void setLineSpacingMultiplier(float lineSpacingMultiplier) {
         this.lineSpacingMultiplier = lineSpacingMultiplier;
+    }
+
+    public String getSizeName() {
+        return sizeName;
+    }
+
+    public void setSizeName(String sizeName) {
+        this.sizeName = sizeName;
+    }
+
+    public void reset(){
+        bgName = null;
+        resId = 0;
+        resShow = 0;
+        fontName = null;
+        typeface = null;
+        isBold = false;
+        isItaic = false;
+        isUnderLine = false;
+        gravy = 0;
+        move = 0;
+        sizeName = null;
+        size = 0;
+        lineSpacingMultiplier = 0;
     }
 }

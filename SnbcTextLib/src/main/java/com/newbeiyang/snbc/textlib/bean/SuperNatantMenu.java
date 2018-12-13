@@ -1,6 +1,7 @@
 package com.newbeiyang.snbc.textlib.bean;
 
 /**
+ * 菜单数据对象集合
  * 包名称：com.newbeiyang.snbc.textlib.bean
  * 作者：zhangyuhui 项目名称：CompanyModule
  * 日期：2018/12/12 15:33

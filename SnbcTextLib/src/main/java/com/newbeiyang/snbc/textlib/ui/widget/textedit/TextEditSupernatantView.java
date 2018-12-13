@@ -27,7 +27,6 @@ import com.newbeiyang.snbc.textlib.ui.fragment.BaseTextFragment;
 import com.newbeiyang.snbc.textlib.ui.fragment.TextAlignFragment;
 import com.newbeiyang.snbc.textlib.ui.fragment.TextBgFragment;
 import com.newbeiyang.snbc.textlib.ui.fragment.TextFontFragment;
-import com.newbeiyang.snbc.textlib.ui.fragment.TextSpacingFragment;
 import com.newbeiyang.snbc.textlib.ui.widget.verticaltablayout.VerticalTabLayout;
 import com.newbeiyang.snbc.textlib.ui.widget.verticaltablayout.adapter.TabAdapter;
 import com.newbeiyang.snbc.textlib.ui.widget.verticaltablayout.widget.TabView;
@@ -62,7 +61,9 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
     private BaseTextFragment fontFragment;
 
     private BaseTextFragment bgFragment;
+
     private BaseTextFragment alignFragment;
+
     private BaseTextFragment spacingFragment;
 
     private BaseTextFragment currentFragment;
@@ -111,9 +112,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         List<SuperNatantMenu> menus= new ArrayList<>();
         Collections.addAll(menus, new SuperNatantMenu("BG", R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal,R.drawable.natant_bubble_select)
                 , new SuperNatantMenu("FONT", R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected,R.drawable.natant_font_select)
-                , new SuperNatantMenu("ALIGN", R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected,R.drawable.natant_align_select)
-                , new SuperNatantMenu("SPAC", R.mipmap.icon_italic_selected, R.mipmap.icon_italic_unselected,R.drawable.natant_italic_select));
-
+                , new SuperNatantMenu("ALIGN", R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected,R.drawable.natant_align_select));
 
         id_supernatant_tab_vertical.setTabAdapter(new MyTabAdapter(menus));
 
@@ -129,7 +128,12 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         fontFragment = new TextFontFragment();
         bgFragment = new TextBgFragment();
         alignFragment = new TextAlignFragment();
-        spacingFragment = new TextSpacingFragment();
+
+        //默认直接加载界面
+        switchFragment(alignFragment).commit();
+        switchFragment(fontFragment).commit();
+        switchFragment(bgFragment).commit();
+
         initListener();
     }
 
@@ -139,9 +143,6 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         bgFragment.setBgListener(this);
         fontFragment.setFontListener(this);
         alignFragment.setAlignListener(this);
-        spacingFragment.setSpacingListener(this);
-
-        switchFragment(bgFragment).commit();
 
         id_supernatant_tab.addOnTabSelectedListener(this);
         id_supernatant_tab_vertical.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
@@ -153,7 +154,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
                     switchFragment(fontFragment).commit();
                 } else if ("ALIGN".equals(tab.getIcon().getTag())) {
                     switchFragment(alignFragment).commit();
-                } else if ("SPAC".equals(tab.getIcon().getTag())) {
+                } else {
                     switchFragment(spacingFragment).commit();
                 }
             }
@@ -182,15 +183,16 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
             //未初始化控件
             return;
         }
+        int height = SupernatantCfg.getWidth()/12;
         switch (type) {
             case RADIOTOP:
                 //标签在顶部展示（水平方向）默认方向
                 id_supernatant_tab_vertical.setVisibility(GONE);
                 id_supernatant_tab.setVisibility(VISIBLE);
-                LayoutParams top = new LayoutParams(LayoutParams.MATCH_PARENT, 80);
+                LayoutParams top = new LayoutParams(LayoutParams.MATCH_PARENT, height);
                 top.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 id_supernatant_tab.setLayoutParams(top);
-                LayoutParams topView = new LayoutParams(LayoutParams.MATCH_PARENT, width / 2 - 80);
+                LayoutParams topView = new LayoutParams(LayoutParams.MATCH_PARENT, width / 2 - height);
                 topView.addRule(RelativeLayout.BELOW, R.id.id_supernatant_tab);
                 id_supernatant_frame.setLayoutParams(topView);
                 break;
@@ -198,10 +200,10 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
                 //标签在底部展示（水平方向）
                 id_supernatant_tab_vertical.setVisibility(GONE);
                 id_supernatant_tab.setVisibility(VISIBLE);
-                LayoutParams down = new LayoutParams(LayoutParams.MATCH_PARENT, 80);
+                LayoutParams down = new LayoutParams(LayoutParams.MATCH_PARENT, height);
                 down.addRule(RelativeLayout.BELOW, R.id.id_supernatant_frame);
                 id_supernatant_tab.setLayoutParams(down);
-                LayoutParams downView = new LayoutParams(LayoutParams.MATCH_PARENT, width / 2 - 80);
+                LayoutParams downView = new LayoutParams(LayoutParams.MATCH_PARENT, width / 2 - height);
                 downView.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 id_supernatant_frame.setLayoutParams(downView);
                 break;
@@ -209,10 +211,10 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
                 //标签在左侧展示（垂直方向）
                 id_supernatant_tab_vertical.setVisibility(VISIBLE);
                 id_supernatant_tab.setVisibility(GONE);
-                LayoutParams left = new LayoutParams(80, LayoutParams.MATCH_PARENT);
+                LayoutParams left = new LayoutParams(height, LayoutParams.MATCH_PARENT);
                 left.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                 id_supernatant_tab_vertical.setLayoutParams(left);
-                LayoutParams leftView = new LayoutParams(width - 80, LayoutParams.MATCH_PARENT);
+                LayoutParams leftView = new LayoutParams(width - height, LayoutParams.MATCH_PARENT);
                 leftView.addRule(RelativeLayout.RIGHT_OF, R.id.id_supernatant_tab_vertical);
                 id_supernatant_frame.setLayoutParams(leftView);
                 break;
@@ -220,10 +222,10 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
                 //标签在右侧展示（垂直方向）
                 id_supernatant_tab_vertical.setVisibility(VISIBLE);
                 id_supernatant_tab.setVisibility(GONE);
-                LayoutParams right = new LayoutParams(80, LayoutParams.MATCH_PARENT);
+                LayoutParams right = new LayoutParams(height, LayoutParams.MATCH_PARENT);
                 right.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 id_supernatant_tab_vertical.setLayoutParams(right);
-                LayoutParams rightView = new LayoutParams(width - 80, LayoutParams.MATCH_PARENT);
+                LayoutParams rightView = new LayoutParams(width - height, LayoutParams.MATCH_PARENT);
                 rightView.addRule(RelativeLayout.LEFT_OF, R.id.id_supernatant_tab_vertical);
                 id_supernatant_frame.setLayoutParams(rightView);
                 break;
@@ -304,6 +306,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         } else {
             ft.hide(currentFragment).show(fragment);
         }
+        SuperNatantLog.d(currentFragment+"进行界面选择切换"+fragment);
         currentFragment = fragment;
         return ft;
     }
@@ -354,7 +357,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
             switchFragment(fontFragment).commit();
         } else if ("ALIGN".equals(tab.getTag())) {
             switchFragment(alignFragment).commit();
-        } else if ("SPAC".equals(tab.getTag())) {
+        } else{
             switchFragment(spacingFragment).commit();
         }
     }
@@ -368,16 +371,51 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
-    //设置背景资源
+
+    /**设置背景资源
+     * @param datas 资源列表
+     */
     public void setBgResouce(List<EditSupernatant> datas) {
         if (bgFragment != null){
             bgFragment.updateBG(datas);
         }
     }
-    //设置字体资源
+
+    /**设置字体资源
+     * @param datas 资源列表
+     */
     public void setFontResouce(List<EditSupernatant> datas) {
         if (bgFragment != null){
             bgFragment.updateBG(datas);
+        }
+    }
+
+    /**
+     * 设置居中样式列表
+     * @param fontSize 字体大小列表
+     * @param spacing 字体间距列表
+     */
+    public void setAlignResouce(List<EditSupernatant> fontSize, List<EditSupernatant> spacing){
+        if (alignFragment != null){
+            alignFragment.updateAlign(fontSize,spacing);
+        }
+    }
+
+    /**
+     *  当用户选中一个新的控件，焦点进行变更时，焦点发生变更时，调用此方法进行库内部清理。
+     */
+    public void resetNatant() {
+        if (bgFragment !=null) {
+            bgFragment.resetNatant();
+        }
+        if (fontFragment !=null) {
+            fontFragment.resetNatant();
+        }
+        if (alignFragment !=null) {
+            alignFragment.resetNatant();
+        }
+        if (spacingFragment !=null) {
+            spacingFragment.resetNatant();
         }
     }
 

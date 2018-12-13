@@ -14,19 +14,24 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/id_supernatant_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        app:tabIndicatorColor="@android:color/holo_red_light"
-        app:tabMode="scrollable"/>
+        android:layout_height="48dp"
+        android:background="@color/tanant_show_nor"
+        app:tabIndicatorColor="@color/tanant_show_orange"
+        app:tabMode="scrollable" />
 
     <com.newbeiyang.snbc.textlib.ui.widget.verticaltablayout.VerticalTabLayout
         android:id="@+id/id_supernatant_tab_vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
-        app:indicator_color="@android:color/holo_red_light"
-        app:tab_height="50dp"
+        android:background="@color/tanant_show_nor"
+        app:indicator_color="@color/tanant_show_orange"
+        app:tab_height="48dp"
         app:tab_mode="scrollable"
-        />
+        android:visibility="gone"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tanant_text_color" />
 
 </RelativeLayout>

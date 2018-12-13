@@ -3,6 +3,13 @@ package com.darly.snbc.companymodule;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -107,6 +114,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     view.requestFocusFromTouch();
                     //直接获取控件
                     currentCheckView = view.getEdit();
+                    manager.resetFocuss();
                 }
 
                 @Override
@@ -125,17 +133,73 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             });
         }
     }
+
     //修改字体
     public void onFontSelect(Typeface font) {
         if (currentCheckView != null) {
             currentCheckView.setTypeface(font);
         }
     }
+
     //修改对齐方式粗细
-    public void onAlignmentThickness(EditSupernatant alignmentThickness) {
+    public void onAlignmentThickness(EditSupernatant align) {
+        if (align == null) {
+            Log.d(getClass().getSimpleName(), "参数传递错误");
+            return;
+        }
+        if (currentCheckView != null) {
+            if (align.getSize() != 0) {
+                currentCheckView.setTextSize(TypedValue.COMPLEX_UNIT_SP, align.getSize());
+            }
+            if (align.getLineSpacingMultiplier() != 0) {
+                currentCheckView.setLineSpacing(0, align.getLineSpacingMultiplier());
+            }
+            String text = currentCheckView.getText().toString().trim();
+            SpannableString spanString = new SpannableString(text);
+            if (align.isBold()) {
+                //设置粗体
+                StyleSpan span = new StyleSpan(Typeface.BOLD);
+                spanString.setSpan(span,0,text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            if (align.isItaic()) {
+                //设置斜体
+                StyleSpan span = new StyleSpan(Typeface.ITALIC);
+                spanString.setSpan(span, 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            if (align.isUnderLine()) {
+                //设置下划线
+                UnderlineSpan span = new UnderlineSpan();
+                spanString.setSpan(span, 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            currentCheckView.setText(spanString);
+            switch (align.getGravy()) {
+                case 1:
+                    currentCheckView.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+                    break;
+                case 2:
+                    currentCheckView.setGravity(Gravity.CENTER);
+                    break;
+                case 3:
+                    currentCheckView.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
+                    break;
+                default:
+                    break;
+            }
+            if (align.getMove()!=0){
+                int padding = currentCheckView.getPaddingLeft();
+                if (align.getMove() == -1){
+                    //左移动一格
+                    currentCheckView.setPadding(padding-10,0,0,0);
+                }else if (align.getMove() == 1){
+                    //右移动一格
+                    currentCheckView.setPadding(padding+10,0,0,0);
+                }
+            }
+        }
 
     }
-    //修改间距字号
+
+    //自定义样式修改
     public void onFontSizeSpacing(EditSupernatant fontSizeSpacing) {
 
     }

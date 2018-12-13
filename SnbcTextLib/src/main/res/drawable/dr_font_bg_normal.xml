@@ -4,10 +4,10 @@
 
     <corners android:radius="5dp" />
 
-    <solid android:color="@android:color/white" />
+    <solid android:color="@color/tanant_show_nor" />
 
     <stroke
         android:width="2dp"
-        android:color="@android:color/darker_gray" />
+        android:color="@color/tanant_show_sel" />
 
 </shape>

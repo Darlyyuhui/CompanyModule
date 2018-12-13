@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@color/tanant_fragmnet_background"
     android:scrollbars="none">
 
     <LinearLayout
@@ -14,19 +15,55 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="字形/缩进"
-            android:textColor="@color/tanant_text_color" />
+            android:text="字号"
+            android:textColor="@color/tanant_show_sel" />
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/id_supernatant_space_size_tab"
+            style="@style/SupernatantTab"
+            android:background="@drawable/dr_font_bg_normal"
+            app:tabBackground="@drawable/natant_spacing_select"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPadding="4dp"
+            app:tabSelectedTextColor="@color/tanant_text_color"
+            app:tabTextColor="@color/tanant_show_sel" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="行距"
+            android:textColor="@color/tanant_show_sel" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/id_supernatant_space_lib_tab"
+            style="@style/SupernatantTab"
+            android:background="@drawable/dr_font_bg_normal"
+            app:tabBackground="@drawable/natant_spacing_select"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="48dp"
+            app:tabMode="scrollable"
+            app:tabPadding="4dp"
+            app:tabSelectedTextColor="@color/tanant_text_color"
+            app:tabTextColor="@color/tanant_show_sel" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字形/缩进"
+            android:textColor="@color/tanant_show_sel" />
+
+        <LinearLayout
+            style="@style/SupernatantTab"
             android:orientation="horizontal">
 
-            <ImageView
+            <CheckBox
+                android:id="@+id/id_supernatant_checkbox_cu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_cu_select"
+                android:button="@null"
                 android:padding="10dp"
                 android:scaleType="center" />
 
@@ -35,10 +72,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <ImageView
+            <CheckBox
+                android:id="@+id/id_supernatant_checkbox_itle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_itle_select"
+                android:button="@null"
                 android:padding="10dp" />
 
             <TextView
@@ -46,10 +85,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <ImageView
+            <CheckBox
+                android:id="@+id/id_supernatant_checkbox_uline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_uline_select"
+                android:button="@null"
                 android:padding="10dp" />
 
             <TextView
@@ -58,9 +99,11 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/id_supernatant_iv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_left_back_pressed"
+                android:clickable="true"
                 android:padding="10dp" />
 
             <TextView
@@ -69,29 +112,28 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/id_supernatant_iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_right_back_pressed"
+                android:clickable="true"
                 android:padding="10dp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/design_default_color_primary" />
+            android:background="@color/tanant_show_sel" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:text="对齐"
-            android:textColor="@color/tanant_text_color" />
+            android:textColor="@color/tanant_show_sel" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/id_supernatant_align_tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dr_font_bg_normal"
+            style="@style/SupernatantTab"
             app:tabIndicatorColor="@android:color/transparent"
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
