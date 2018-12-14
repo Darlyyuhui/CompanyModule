@@ -17,6 +17,4 @@ public interface OnEditSupernatantListener {
     void getTypeface(EditSupernatant font);
     //对齐对外接口
     void getAlign(EditSupernatant align);
-    //样式对外接口
-    void getSpacing(EditSupernatant spacing);
 }

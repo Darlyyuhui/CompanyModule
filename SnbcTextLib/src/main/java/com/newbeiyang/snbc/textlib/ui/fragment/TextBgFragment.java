@@ -29,6 +29,8 @@ public class TextBgFragment extends BaseTextFragment {
 
     private TextBackgroundAdapter adapter;
 
+    private List<EditSupernatant> bgDatas;
+
     @Override
     protected int root() {
         return R.layout.fragment_text_bg;
@@ -44,19 +46,23 @@ public class TextBgFragment extends BaseTextFragment {
 
     @Override
     protected void loadData() {
-        List<EditSupernatant> data = new ArrayList<EditSupernatant>();
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_text,R.mipmap.icon_bubble_text));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_selected,R.mipmap.icon_bubble_normal));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_1_preview,R.mipmap.icon_bubble_1));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_2_preview,R.mipmap.icon_bubble_2));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_3_preview,R.mipmap.icon_bubble_3));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_4_preview,R.mipmap.icon_bubble_4));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_5_preview,R.mipmap.icon_bubble_5));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_6_preview,R.mipmap.icon_bubble_6));
-        data.add(new EditSupernatant(null,R.mipmap.icon_bubble_7_preview,R.mipmap.icon_bubble_7));
-
-        adapter = new TextBackgroundAdapter(data);
-        id_fragment_bg_rv.setAdapter(adapter);
+        if (bgDatas != null&&bgDatas.size()>0) {
+            adapter = new TextBackgroundAdapter(bgDatas);
+            id_fragment_bg_rv.setAdapter(adapter);
+        }else {
+            List<EditSupernatant> data = new ArrayList<EditSupernatant>();
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_text, R.mipmap.icon_bubble_text));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_1_preview, R.mipmap.icon_bubble_1));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_2_preview, R.mipmap.icon_bubble_2));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_3_preview, R.mipmap.icon_bubble_3));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_4_preview, R.mipmap.icon_bubble_4));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_5_preview, R.mipmap.icon_bubble_5));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_6_preview, R.mipmap.icon_bubble_6));
+            data.add(new EditSupernatant(null, R.mipmap.icon_bubble_7_preview, R.mipmap.icon_bubble_7));
+            adapter = new TextBackgroundAdapter(data);
+            id_fragment_bg_rv.setAdapter(adapter);
+        }
         SuperNatantLog.d(getClass().getSimpleName() + "界面UI初始化完成");
     }
 
@@ -86,6 +92,6 @@ public class TextBgFragment extends BaseTextFragment {
     @Override
     public void updateBG(List<EditSupernatant> datas) {
         super.updateBG(datas);
-        adapter.setDatas(datas);
+        bgDatas = datas;
     }
 }

@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.newbeiyang.snbc.textlib.R;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
-import com.newbeiyang.snbc.textlib.bean.SuperNatantMenu;
 import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
 import com.newbeiyang.snbc.textlib.common.log.SuperNatantLog;
 
@@ -26,7 +24,7 @@ import java.util.List;
  * 公司：山东新北洋信息技术股份有限公司西安分公司
  * 邮箱：zhangyuhui@newbeiyang.com
  */
-public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnTabSelectedListener,CompoundButton.OnCheckedChangeListener {
+public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnTabSelectedListener, CompoundButton.OnCheckedChangeListener {
 
     private OnEditSupernatantListener textAlignListener;
 
@@ -43,6 +41,9 @@ public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnT
 
     private ImageView id_supernatant_iv_left;
     private ImageView id_supernatant_iv_right;
+
+    private List<EditSupernatant> fontSize;
+    private List<EditSupernatant> spacing;
 
     private EditSupernatant supernatant = new EditSupernatant();
 
@@ -81,39 +82,57 @@ public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnT
         right.setTag("RIGHT");
         right.setIcon(R.drawable.dr_natant_text_right_select);
         id_supernatant_align_tab.addTab(right);
-        List<EditSupernatant> menus = new ArrayList<EditSupernatant>();
-        Collections.addAll(menus, new EditSupernatant("七号", 12)
-                , new EditSupernatant("六号", 18)
-                , new EditSupernatant("五号", 22)
-                , new EditSupernatant("四号", 26)
-                , new EditSupernatant("三号", 30)
-                , new EditSupernatant("二号", 34)
-                , new EditSupernatant("一号", 38)
-                , new EditSupernatant("小初", 40));
 
-        for (EditSupernatant size : menus) {
-            TabLayout.Tab tab = id_supernatant_space_size_tab.newTab();
-            tab.setText(size.getSizeName());
-            tab.setTag(size);
-            id_supernatant_space_size_tab.addTab(tab);
+        if (fontSize != null && fontSize.size() > 0) {
+            for (EditSupernatant size : fontSize) {
+                TabLayout.Tab tab = id_supernatant_space_size_tab.newTab();
+                tab.setText(size.getSizeName());
+                tab.setTag(size);
+                id_supernatant_space_size_tab.addTab(tab);
+            }
+        } else {
+            List<EditSupernatant> menus = new ArrayList<EditSupernatant>();
+            Collections.addAll(menus, new EditSupernatant("七号", 12)
+                    , new EditSupernatant("六号", 18)
+                    , new EditSupernatant("五号", 22)
+                    , new EditSupernatant("四号", 26)
+                    , new EditSupernatant("三号", 30)
+                    , new EditSupernatant("二号", 34)
+                    , new EditSupernatant("一号", 38)
+                    , new EditSupernatant("小初", 40));
+
+            for (EditSupernatant size : menus) {
+                TabLayout.Tab tab = id_supernatant_space_size_tab.newTab();
+                tab.setText(size.getSizeName());
+                tab.setTag(size);
+                id_supernatant_space_size_tab.addTab(tab);
+            }
         }
-
-        List<EditSupernatant> libs = new ArrayList<EditSupernatant>();
-        Collections.addAll(libs, new EditSupernatant(0.5f)
-                , new EditSupernatant(1.0f)
-                , new EditSupernatant(1.5f)
-                , new EditSupernatant(2.0f)
-                , new EditSupernatant(2.5f)
-                , new EditSupernatant(3.0f)
-                , new EditSupernatant(3.5f)
-                , new EditSupernatant(4.0f)
-                , new EditSupernatant(5.0f)
-                , new EditSupernatant(6.0f));
-        for (EditSupernatant lib : libs) {
-            TabLayout.Tab tab = id_supernatant_space_lib_tab.newTab();
-            tab.setText(String.valueOf(lib.getLineSpacingMultiplier()));
-            tab.setTag("LIB");
-            id_supernatant_space_lib_tab.addTab(tab);
+        if (spacing != null && spacing.size() > 0) {
+            for (EditSupernatant lib : spacing) {
+                TabLayout.Tab tab = id_supernatant_space_lib_tab.newTab();
+                tab.setText(String.valueOf(lib.getLineSpacingMultiplier()));
+                tab.setTag("LIB");
+                id_supernatant_space_lib_tab.addTab(tab);
+            }
+        } else {
+            List<EditSupernatant> libs = new ArrayList<EditSupernatant>();
+            Collections.addAll(libs, new EditSupernatant(0.5f)
+                    , new EditSupernatant(1.0f)
+                    , new EditSupernatant(1.5f)
+                    , new EditSupernatant(2.0f)
+                    , new EditSupernatant(2.5f)
+                    , new EditSupernatant(3.0f)
+                    , new EditSupernatant(3.5f)
+                    , new EditSupernatant(4.0f)
+                    , new EditSupernatant(5.0f)
+                    , new EditSupernatant(6.0f));
+            for (EditSupernatant lib : libs) {
+                TabLayout.Tab tab = id_supernatant_space_lib_tab.newTab();
+                tab.setText(String.valueOf(lib.getLineSpacingMultiplier()));
+                tab.setTag("LIB");
+                id_supernatant_space_lib_tab.addTab(tab);
+            }
         }
         SuperNatantLog.d(getClass().getSimpleName() + "界面UI初始化完成");
     }
@@ -147,21 +166,8 @@ public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnT
     @Override
     public void updateAlign(List<EditSupernatant> fontSize, List<EditSupernatant> spacing) {
         super.updateAlign(fontSize, spacing);
-        id_supernatant_space_size_tab.removeAllTabs();
-        for (EditSupernatant size : fontSize) {
-            TabLayout.Tab tab = id_supernatant_space_size_tab.newTab();
-            tab.setText(size.getSizeName());
-            tab.setTag(size);
-            id_supernatant_space_size_tab.addTab(tab);
-        }
-        id_supernatant_space_lib_tab.removeAllTabs();
-        for (EditSupernatant lib : spacing) {
-            TabLayout.Tab tab = id_supernatant_space_lib_tab.newTab();
-            tab.setText(String.valueOf(lib.getLineSpacingMultiplier()));
-            tab.setTag("LIB");
-            id_supernatant_space_lib_tab.addTab(tab);
-        }
-
+        this.fontSize = fontSize;
+        this.spacing = spacing;
     }
 
     @Override
@@ -172,7 +178,7 @@ public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnT
 
     @Override
     public void resetNatant() {
-        if (supernatant!=null) {
+        if (supernatant != null) {
             supernatant.reset();
         }
     }
@@ -217,24 +223,24 @@ public class TextAlignFragment extends BaseTextFragment implements TabLayout.OnT
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == id_supernatant_checkbox_cu.getId()){
-            if (isChecked){
+        if (buttonView.getId() == id_supernatant_checkbox_cu.getId()) {
+            if (isChecked) {
                 supernatant.setBold(true);
-            }else {
+            } else {
                 supernatant.setBold(false);
             }
         }
-        if (buttonView.getId() == id_supernatant_checkbox_itle.getId()){
-            if (isChecked){
+        if (buttonView.getId() == id_supernatant_checkbox_itle.getId()) {
+            if (isChecked) {
                 supernatant.setItaic(true);
-            }else {
+            } else {
                 supernatant.setItaic(false);
             }
         }
-        if (buttonView.getId() == id_supernatant_checkbox_uline.getId()){
-            if (isChecked){
+        if (buttonView.getId() == id_supernatant_checkbox_uline.getId()) {
+            if (isChecked) {
                 supernatant.setUnderLine(true);
-            }else {
+            } else {
                 supernatant.setUnderLine(false);
             }
         }

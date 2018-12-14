@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
+import com.newbeiyang.snbc.textlib.bean.SuperNatantMenu;
 import com.newbeiyang.snbc.textlib.common.log.SuperNatantLog;
 import com.newbeiyang.snbc.textlib.common.observer.AbstractDesigner;
 import com.newbeiyang.snbc.textlib.common.observer.DesignListener;
@@ -25,6 +26,8 @@ import java.util.List;
  * 邮箱：zhangyuhui@newbeiyang.com
  */
 public class TextEditManager {
+
+
 
     private TextEditSupernatantView view;
 
@@ -58,11 +61,24 @@ public class TextEditManager {
     //第三步，初始化子菜单位置
     public TextEditManager setMenuPostion(SuperNatantEnum type) {
         view.setMenuPostion(type);
-        show();
         SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单位置成功");
         return this;
     }
 
+
+    /**
+     * 根据自己的图标或者文字进行修改子菜单
+     * <pre>{@code
+     * new SuperNatantMenu("FONT",null, R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected, R.drawable.natant_font_select)
+     * }</pre>
+     * @param menus
+     * @return
+     */
+    public TextEditManager setMenu(List<SuperNatantMenu> menus){
+        view.updateMenu(menus);
+        SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单設置成功");
+        return this;
+    }
 
     /**
      * 设置自定义布局，传递进入Fragment，进行自定义布局展示。但是回调方法还是走历史路径
@@ -87,13 +103,7 @@ public class TextEditManager {
                 view.setAlignFragment(fragment);
                 SuperNatantLog.d(getClass().getSimpleName() + "自定义对齐等界面设置成功");
                 break;
-            case SIZESPACING:
-                //自定义样式界面
-                view.setSpacingFragment(fragment);
-                SuperNatantLog.d(getClass().getSimpleName() + "自定义其他界面设置成功");
-                break;
         }
-        view.switchFragment(fragment).commit();
         return this;
     }
 

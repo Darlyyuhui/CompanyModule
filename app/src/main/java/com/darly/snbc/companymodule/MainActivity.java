@@ -28,7 +28,14 @@ import com.newbeiyang.snbc.textlib.TextEditManager;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
 import com.newbeiyang.snbc.textlib.common.SuperNatantEnum;
 import com.newbeiyang.snbc.textlib.common.listener.TextEditSupernatantListener;
-
+/**
+ * 使用默认布局
+ * 包名称：com.darly.snbc.companymodule
+ * 作者：zhangyuhui 项目名称：CompanyModule
+ * 日期：2018/12/14 11:07
+ * 公司：山东新北洋信息技术股份有限公司西安分公司
+ * 邮箱：zhangyuhui@newbeiyang.com
+ */
 public class MainActivity extends BaseActivity implements View.OnClickListener, TextEditSupernatantListener, RadioGroup.OnCheckedChangeListener {
 
     EditText id_main_edit;
@@ -199,11 +206,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    //自定义样式修改
-    public void onFontSizeSpacing(EditSupernatant fontSizeSpacing) {
-
-    }
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
@@ -212,28 +214,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 id_main_radio_text_down.setSelected(false);
                 id_main_radio_text_left.setSelected(false);
                 id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIOTOP);
+                manager.setMenuPostion(SuperNatantEnum.RADIOTOP).show();
                 break;
             case R.id.id_main_radio_text_down:
                 id_main_radio_text_edit.setSelected(false);
                 id_main_radio_text_down.setSelected(true);
                 id_main_radio_text_left.setSelected(false);
                 id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIODOWN);
+                manager.setMenuPostion(SuperNatantEnum.RADIODOWN).show();
                 break;
             case R.id.id_main_radio_text_left:
                 id_main_radio_text_edit.setSelected(false);
                 id_main_radio_text_down.setSelected(false);
                 id_main_radio_text_left.setSelected(true);
                 id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIOLEFT);
+                manager.setMenuPostion(SuperNatantEnum.RADIOLEFT).show();
                 break;
             case R.id.id_main_radio_text_right:
                 id_main_radio_text_edit.setSelected(false);
                 id_main_radio_text_down.setSelected(false);
                 id_main_radio_text_left.setSelected(false);
                 id_main_radio_text_right.setSelected(true);
-                manager.setMenuPostion(SuperNatantEnum.RADIORIGHT);
+                manager.setMenuPostion(SuperNatantEnum.RADIORIGHT).show();
                 break;
             default:
                 break;
@@ -253,9 +255,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case NATANT_ALIGNMENTTHICKNESS:
                 onAlignmentThickness(supernatant);
-                break;
-            case NATANT_FONTSIZESPACING:
-                onFontSizeSpacing(supernatant);
                 break;
             default:
                 break;

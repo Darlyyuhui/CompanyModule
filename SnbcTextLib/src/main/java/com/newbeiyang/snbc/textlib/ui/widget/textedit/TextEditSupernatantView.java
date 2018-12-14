@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import com.newbeiyang.snbc.textlib.R;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
 import com.newbeiyang.snbc.textlib.bean.SuperNatantMenu;
+import com.newbeiyang.snbc.textlib.common.SuperNatantConstant;
 import com.newbeiyang.snbc.textlib.common.SuperNatantEnum;
 import com.newbeiyang.snbc.textlib.common.listener.OnEditSupernatantListener;
 import com.newbeiyang.snbc.textlib.common.listener.TextEditSupernatantListener;
@@ -109,17 +111,22 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         id_supernatant_tab = findViewById(R.id.id_supernatant_tab);
         id_supernatant_tab_vertical = findViewById(R.id.id_supernatant_tab_vertical);
 
-        List<SuperNatantMenu> menus= new ArrayList<>();
-        Collections.addAll(menus, new SuperNatantMenu("BG", R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal,R.drawable.natant_bubble_select)
-                , new SuperNatantMenu("FONT", R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected,R.drawable.natant_font_select)
-                , new SuperNatantMenu("ALIGN", R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected,R.drawable.natant_align_select));
+        List<SuperNatantMenu> menus = new ArrayList<>();
+        Collections.addAll(menus, new SuperNatantMenu(SuperNatantConstant.MENU_BG,null, R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal, R.drawable.natant_bubble_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_FT,null, R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected, R.drawable.natant_font_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_AN,null, R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected, R.drawable.natant_align_select));
 
         id_supernatant_tab_vertical.setTabAdapter(new MyTabAdapter(menus));
 
-        for (SuperNatantMenu mes:menus) {
+        for (SuperNatantMenu mes : menus) {
             TabLayout.Tab bg = id_supernatant_tab.newTab();
-            bg.setTag(mes.getName());
-            bg.setIcon(mes.getSelectDrawable());
+            bg.setTag(mes.getType());
+            if (!TextUtils.isEmpty(mes.getName())){
+                bg.setText(mes.getName());
+            }
+            if (mes.getSelectDrawable() != 0) {
+                bg.setIcon(mes.getSelectDrawable());
+            }
             id_supernatant_tab.addTab(bg);
         }
 
@@ -135,6 +142,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         switchFragment(bgFragment).commit();
 
         initListener();
+        SuperNatantLog.d(getClass().getSimpleName()+"界面初始化完成");
     }
 
     //监听
@@ -148,11 +156,11 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         id_supernatant_tab_vertical.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabView tab, int position) {
-                if ("BG".equals(tab.getIcon().getTag())) {
+                if (SuperNatantConstant.MENU_BG.equals(tab.getIcon().getTag())) {
                     switchFragment(bgFragment).commit();
-                } else if ("FONT".equals(tab.getIcon().getTag())) {
+                } else if (SuperNatantConstant.MENU_FT.equals(tab.getIcon().getTag())) {
                     switchFragment(fontFragment).commit();
-                } else if ("ALIGN".equals(tab.getIcon().getTag())) {
+                } else if (SuperNatantConstant.MENU_AN.equals(tab.getIcon().getTag())) {
                     switchFragment(alignFragment).commit();
                 } else {
                     switchFragment(spacingFragment).commit();
@@ -172,6 +180,27 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         this.textEditSupernatantListener = textEditSupernatantListener;
     }
 
+    /**
+     * 进行子菜单更新
+     * @param menusData 菜单数据
+     */
+    public void updateMenu(List<SuperNatantMenu> menusData) {
+        if (menusData!= null&&menusData.size() == 3) {
+            id_supernatant_tab_vertical.setTabAdapter(new MyTabAdapter(menusData));
+            id_supernatant_tab.removeAllTabs();
+            for (SuperNatantMenu mes : menusData) {
+                TabLayout.Tab bg = id_supernatant_tab.newTab();
+                bg.setTag(mes.getType());
+                if (!TextUtils.isEmpty(mes.getName())) {
+                    bg.setText(mes.getName());
+                }
+                if (mes.getSelectDrawable() != 0) {
+                    bg.setIcon(mes.getSelectDrawable());
+                }
+                id_supernatant_tab.addTab(bg);
+            }
+        }
+    }
 
     /**
      * 根据传递的位置信息，进行样式修改
@@ -183,7 +212,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
             //未初始化控件
             return;
         }
-        int height = SupernatantCfg.getWidth()/12;
+        int height = SupernatantCfg.getWidth() / 12;
         switch (type) {
             case RADIOTOP:
                 //标签在顶部展示（水平方向）默认方向
@@ -244,6 +273,8 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         }
         bgFragment = fragment;
         bgFragment.setBgListener(this);
+        id_supernatant_tab.getTabAt(0).select();
+        id_supernatant_tab_vertical.getTabAt(0).setSelected(true);
     }
 
     /**
@@ -258,6 +289,8 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         }
         fontFragment = fragment;
         fontFragment.setFontListener(this);
+        id_supernatant_tab.getTabAt(1).select();
+        id_supernatant_tab_vertical.getTabAt(1).setSelected(true);
     }
 
     /**
@@ -272,22 +305,9 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         }
         alignFragment = fragment;
         alignFragment.setAlignListener(this);
+        id_supernatant_tab.getTabAt(2).select();
+        id_supernatant_tab_vertical.getTabAt(2).setSelected(true);
     }
-
-    /**
-     * 自定义样式界面
-     *
-     * @param fragment 字体布局
-     */
-    public void setSpacingFragment(BaseTextFragment fragment) {
-        if (fragment == null) {
-            //用户布局为空
-            return;
-        }
-        spacingFragment = fragment;
-        spacingFragment.setSpacingListener(this);
-    }
-
 
     /**
      * 优化切换Fragment方案。
@@ -306,7 +326,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         } else {
             ft.hide(currentFragment).show(fragment);
         }
-        SuperNatantLog.d(currentFragment+"进行界面选择切换"+fragment);
+        SuperNatantLog.d(currentFragment + "进行界面选择切换" + fragment);
         currentFragment = fragment;
         return ft;
     }
@@ -339,25 +359,16 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         }
     }
 
-    @Override
-    public void getSpacing(EditSupernatant spacing) {
-        if (textEditSupernatantListener != null) {
-            textEditSupernatantListener.onSelectSupernatant(spacing, SuperNatantEnum.NATANT_FONTSIZESPACING);
-        } else {
-            SuperNatantLog.i("监听未初始化，请初始化");
-        }
-    }
-
     //tabLayout 选中某项
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        if ("BG".equals(tab.getTag())) {
+        if (SuperNatantConstant.MENU_BG.equals(tab.getTag())) {
             switchFragment(bgFragment).commit();
-        } else if ("FONT".equals(tab.getTag())) {
+        } else if (SuperNatantConstant.MENU_FT.equals(tab.getTag())) {
             switchFragment(fontFragment).commit();
-        } else if ("ALIGN".equals(tab.getTag())) {
+        } else if (SuperNatantConstant.MENU_AN.equals(tab.getTag())) {
             switchFragment(alignFragment).commit();
-        } else{
+        } else {
             switchFragment(spacingFragment).commit();
         }
     }
@@ -372,52 +383,59 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
 
     }
 
-    /**设置背景资源
+    /**
+     * 设置背景资源
+     *
      * @param datas 资源列表
      */
     public void setBgResouce(List<EditSupernatant> datas) {
-        if (bgFragment != null){
+        if (bgFragment != null) {
             bgFragment.updateBG(datas);
         }
     }
 
-    /**设置字体资源
+    /**
+     * 设置字体资源
+     *
      * @param datas 资源列表
      */
     public void setFontResouce(List<EditSupernatant> datas) {
-        if (bgFragment != null){
-            bgFragment.updateBG(datas);
+        if (fontFragment != null) {
+            fontFragment.updateFont(datas);
         }
     }
 
     /**
      * 设置居中样式列表
+     *
      * @param fontSize 字体大小列表
-     * @param spacing 字体间距列表
+     * @param spacing  字体间距列表
      */
-    public void setAlignResouce(List<EditSupernatant> fontSize, List<EditSupernatant> spacing){
-        if (alignFragment != null){
-            alignFragment.updateAlign(fontSize,spacing);
+    public void setAlignResouce(List<EditSupernatant> fontSize, List<EditSupernatant> spacing) {
+        if (alignFragment != null) {
+            alignFragment.updateAlign(fontSize, spacing);
         }
     }
 
     /**
-     *  当用户选中一个新的控件，焦点进行变更时，焦点发生变更时，调用此方法进行库内部清理。
+     * 当用户选中一个新的控件，焦点进行变更时，焦点发生变更时，调用此方法进行库内部清理。
      */
     public void resetNatant() {
-        if (bgFragment !=null) {
+        if (bgFragment != null) {
             bgFragment.resetNatant();
         }
-        if (fontFragment !=null) {
+        if (fontFragment != null) {
             fontFragment.resetNatant();
         }
-        if (alignFragment !=null) {
+        if (alignFragment != null) {
             alignFragment.resetNatant();
         }
-        if (spacingFragment !=null) {
+        if (spacingFragment != null) {
             spacingFragment.resetNatant();
         }
     }
+
+
 
 
     private class MyTabAdapter implements TabAdapter {
@@ -442,7 +460,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         public TabView.TabIcon getIcon(int position) {
             SuperNatantMenu menu = menus.get(position);
             return new TabView.TabIcon.Builder()
-                    .setTag(menu.getName())
+                    .setTag(menu.getType())
                     .setIcon(menu.getmSelectIcon(), menu.getmNormalIcon())
                     .setIconGravity(Gravity.END)
                     .build();
@@ -450,7 +468,13 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
 
         @Override
         public TabView.TabTitle getTitle(int position) {
-            return new TabView.TabTitle.Builder().build();
+            SuperNatantMenu menu = menus.get(position);
+            if (TextUtils.isEmpty(menu.getName())){
+                return new TabView.TabTitle.Builder().build();
+            }else {
+                return new TabView.TabTitle.Builder().setContent(menu.getName()).build();
+            }
+
         }
 
         @Override

@@ -9,17 +9,30 @@ package com.newbeiyang.snbc.textlib.bean;
  * 邮箱：zhangyuhui@newbeiyang.com
  */
 public class SuperNatantMenu {
-
+    //唯一识别类型
+    private String type;
+    //菜单名称
     private String name;
+    //菜单选中图片
     private int mSelectIcon;
+    //菜单默认图片
     private int mNormalIcon;
+    //菜单点选资源
     private int selectDrawable;
-
-    public SuperNatantMenu(String name, int mSelectIcon, int mNormalIcon, int selectDrawable) {
+    public SuperNatantMenu(String type, String name, int mSelectIcon, int mNormalIcon, int selectDrawable) {
+        this.type = type;
         this.name = name;
         this.mSelectIcon = mSelectIcon;
         this.mNormalIcon = mNormalIcon;
         this.selectDrawable = selectDrawable;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {

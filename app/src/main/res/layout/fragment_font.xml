@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tanant_fragmnet_background"
+    android:padding="10dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/id_fragment_bt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体一"/>
+        <Button
+            android:id="@+id/id_fragment_bt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体二"/>
+        <Button
+            android:id="@+id/id_fragment_bt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体三"/>
+        <Button
+            android:id="@+id/id_fragment_bt4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体四"/>
+        <Button
+            android:id="@+id/id_fragment_bt5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体五"/>
+        <Button
+            android:id="@+id/id_fragment_bt6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体六"/>
+        <Button
+            android:id="@+id/id_fragment_bt7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体七"/>
+        <Button
+            android:id="@+id/id_fragment_bt8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体八"/>
+        <Button
+            android:id="@+id/id_fragment_bt9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字体九"/>
+    </LinearLayout>
+
+
+</ScrollView>

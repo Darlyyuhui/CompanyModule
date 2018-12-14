@@ -13,10 +13,8 @@ public enum  SuperNatantEnum {
     NATANT_TEXTBACKGROUND,
     //字体参数修改
     NATANT_FONTRECOVER,
-    //文本编辑浮层对齐粗细选择修改
+    //文本编辑浮层对齐粗细字号间距选择修改
     NATANT_ALIGNMENTTHICKNESS,
-    //文本编辑浮层字号间距选择修改
-    NATANT_FONTSIZESPACING,
 
 
     //选择列表处于顶部
@@ -34,6 +32,4 @@ public enum  SuperNatantEnum {
     FONT,
     //自定义对齐View
     ALIGNMENT,
-    //自定义样式View
-    SIZESPACING,
 }

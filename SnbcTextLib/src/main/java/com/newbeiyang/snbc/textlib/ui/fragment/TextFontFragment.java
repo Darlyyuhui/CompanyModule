@@ -24,6 +24,8 @@ public class TextFontFragment extends BaseTextFragment {
     private OnEditSupernatantListener callBack;
     private String [] fontList = new String[]{"方正卡通简体","瘦金体","隶书","华康娃娃体"};
 
+    private List<EditSupernatant> fontData;
+
     @Override
     protected int root() {
         return R.layout.fragment_text_font;
@@ -39,17 +41,20 @@ public class TextFontFragment extends BaseTextFragment {
 
     @Override
     protected void loadData() {
-        List<EditSupernatant> fontData = new ArrayList<EditSupernatant>();
-        for (String font : fontList) {
-            EditSupernatant recover = new EditSupernatant();
-            recover.setFontName(font);
-            recover.setTypeface(TypefaceCreat.getTypeface(getActivity(), font));
-            fontData.add(recover);
+        if (fontData!=null&&fontData.size()>0){
+            textFontAdapter = new TextFontAdapter(fontData);
+            fontRv.setAdapter(textFontAdapter);
+        }else {
+            List<EditSupernatant> fontDatas = new ArrayList<EditSupernatant>();
+            for (String font : fontList) {
+                EditSupernatant recover = new EditSupernatant();
+                recover.setFontName(font);
+                recover.setTypeface(TypefaceCreat.getTypeface(getActivity(), font));
+                fontDatas.add(recover);
+            }
+            textFontAdapter = new TextFontAdapter(fontDatas);
+            fontRv.setAdapter(textFontAdapter);
         }
-
-        textFontAdapter = new TextFontAdapter(fontData);
-        fontRv.setAdapter(textFontAdapter);
-
         textFontAdapter.setItemClickListener(new TextFontAdapter.OnShowItemClickListener() {
 
             @Override
@@ -69,7 +74,7 @@ public class TextFontFragment extends BaseTextFragment {
     @Override
     public void updateFont(List<EditSupernatant> datas) {
         super.updateFont(datas);
-        textFontAdapter.setDatas(datas);
+        fontData = datas;
     }
 
     @Override

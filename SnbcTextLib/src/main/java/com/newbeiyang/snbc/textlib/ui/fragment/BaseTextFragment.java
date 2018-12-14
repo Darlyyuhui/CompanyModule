@@ -98,11 +98,5 @@ public abstract class BaseTextFragment extends Fragment {
     public void setAlignListener(OnEditSupernatantListener listener) {
     }
 
-    //样式
-    public void updateSpacing() {
-    }
-    public void setSpacingListener(OnEditSupernatantListener listener) {
-    }
-
     public abstract void resetNatant();
 }
