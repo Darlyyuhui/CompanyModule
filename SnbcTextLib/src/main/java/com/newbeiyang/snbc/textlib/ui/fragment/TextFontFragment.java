@@ -22,7 +22,7 @@ public class TextFontFragment extends BaseTextFragment {
     private RecyclerView fontRv;
     private TextFontAdapter textFontAdapter;
     private OnEditSupernatantListener callBack;
-    private String [] fontList = new String[]{"方正卡通简体","楷体","瘦金体","隶书","华康娃娃体","方正正圆"};
+    private String [] fontList = new String[]{"方正卡通简体","瘦金体","隶书","华康娃娃体"};
 
     @Override
     protected int root() {

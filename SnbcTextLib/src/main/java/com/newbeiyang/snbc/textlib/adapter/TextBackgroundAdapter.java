@@ -73,7 +73,10 @@ public class TextBackgroundAdapter extends RecyclerView.Adapter<TextBackgroundAd
         public ViewHolder(View v) {
             super(v);
             id_item_fragment_bg_iv = (ImageView) v.findViewById(R.id.id_item_fragment_bg_iv);
-            id_item_fragment_bg_iv.setLayoutParams(new LinearLayout.LayoutParams(SupernatantCfg.getWidth() / 6, SupernatantCfg.getWidth() / 6));
+
+            LinearLayout.LayoutParams lit =   new LinearLayout.LayoutParams(SupernatantCfg.getWidth() / 6, SupernatantCfg.getWidth() / 6);
+            lit.setMargins(10,10,10,10);
+            id_item_fragment_bg_iv.setLayoutParams(lit);
         }
     }
 

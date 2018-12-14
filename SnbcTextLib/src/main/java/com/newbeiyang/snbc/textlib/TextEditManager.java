@@ -100,9 +100,10 @@ public class TextEditManager {
     /**
      * 设置背景地址列表
      * 格式如下：
+     * <pre>{@code
      * List<EditSupernatant> data = new ArrayList<EditSupernatant>();
      * data.add(new EditSupernatant(null,R.mipmap.icon_bubble_text,R.mipmap.icon_bubble_text));
-     *
+     * }</pre>
      * @param data 背景数据
      */
     public TextEditManager setBackgroundResouce(List<EditSupernatant> data) {
@@ -114,8 +115,10 @@ public class TextEditManager {
     /**
      * 设置字体地址列表
      * 格式如下：
+     * <pre>{@code
      * List<EditSupernatant> data = new ArrayList<EditSupernatant>();
      * data.add(new EditSupernatant("瘦金体",Typeface.createFromAsset(context.getAssets(), "fonts/shoujinti.ttf")));
+     *  }</pre>
      *
      * @param data 字体数据
      */
@@ -127,8 +130,10 @@ public class TextEditManager {
 
     /**
      * 设置居中样式列表
+     * <pre>{@code
      *  new EditSupernatant(1.0f) 间距对象
      *  new EditSupernatant("六号", 18) 字号对象
+     *   }</pre>
      * @param fontSize 字号数据
      * @param spacing 间距数据
      */

@@ -14,9 +14,6 @@ public class TypefaceCreat {
             case "方正卡通简体":
                 name="fangzhengkatongjianti";
                 break;
-            case "楷体":
-                name="kaiti";
-                break;
             case "瘦金体":
                 name="shoujinti";
                 break;
@@ -25,9 +22,6 @@ public class TypefaceCreat {
                 break;
             case "华康娃娃体":
                 name="huakangwawati";
-                break;
-            case "方正正圆":
-                name="fangzhengzhengyuan";
                 break;
         }
         AssetManager mgr = context.getAssets();
