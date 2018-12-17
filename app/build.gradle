@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     //api(name:'SnbcTextLib-release',ext:'aar')
     implementation project(':SnbcTextLib')
+    //implementation 'com.newbeiyang.snbc.textlib:SnbcTextLib:1.0.0'
 }

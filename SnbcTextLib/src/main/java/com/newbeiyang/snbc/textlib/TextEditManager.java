@@ -28,7 +28,6 @@ import java.util.List;
 public class TextEditManager {
 
 
-
     private TextEditSupernatantView view;
 
     private Context context;
@@ -60,8 +59,12 @@ public class TextEditManager {
 
     //第三步，初始化子菜单位置
     public TextEditManager setMenuPostion(SuperNatantEnum type) {
-        view.setMenuPostion(type);
-        SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单位置成功");
+        if (type == null) {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        } else {
+            view.setMenuPostion(type);
+            SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单位置成功");
+        }
         return this;
     }
 
@@ -71,12 +74,21 @@ public class TextEditManager {
      * <pre>{@code
      * new SuperNatantMenu("FONT",null, R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected, R.drawable.natant_font_select)
      * }</pre>
+     *
      * @param menus
      * @return
      */
-    public TextEditManager setMenu(List<SuperNatantMenu> menus){
-        view.updateMenu(menus);
-        SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单設置成功");
+    public TextEditManager setMenu(List<SuperNatantMenu> menus) {
+        if (menus != null && menus.size() > 0) {
+            if (menus.size() > 3) {
+                SuperNatantLog.d(getClass().getSimpleName() + "菜单不能超过三个");
+            } else {
+                view.updateMenu(menus);
+                SuperNatantLog.d(getClass().getSimpleName() + "管理类菜单设置成功");
+            }
+        } else {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        }
         return this;
     }
 
@@ -87,22 +99,29 @@ public class TextEditManager {
      * @param natantEnum 布局类型
      */
     public TextEditManager setView(BaseTextFragment fragment, SuperNatantEnum natantEnum) {
-        switch (natantEnum) {
-            case BACKGROUND:
-                //自定义背景界面
-                view.setBackgroundFragment(fragment);
-                SuperNatantLog.d(getClass().getSimpleName() + "自定义背景界面设置成功");
-                break;
-            case FONT:
-                //自定义字体界面
-                view.setFontFragment(fragment);
-                SuperNatantLog.d(getClass().getSimpleName() + "自定义字体界面设置成功");
-                break;
-            case ALIGNMENT:
-                //自定义对齐界面
-                view.setAlignFragment(fragment);
-                SuperNatantLog.d(getClass().getSimpleName() + "自定义对齐等界面设置成功");
-                break;
+        if (fragment == null || natantEnum == null) {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        } else {
+            switch (natantEnum) {
+                case BACKGROUND:
+                    //自定义背景界面
+                    view.setBackgroundFragment(fragment);
+                    SuperNatantLog.d(getClass().getSimpleName() + "自定义背景界面设置成功");
+                    break;
+                case FONT:
+                    //自定义字体界面
+                    view.setFontFragment(fragment);
+                    SuperNatantLog.d(getClass().getSimpleName() + "自定义字体界面设置成功");
+                    break;
+                case ALIGNMENT:
+                    //自定义对齐界面
+                    view.setAlignFragment(fragment);
+                    SuperNatantLog.d(getClass().getSimpleName() + "自定义对齐等界面设置成功");
+                    break;
+                default:
+                    SuperNatantLog.d(getClass().getSimpleName() + "自定义界面为空");
+                    break;
+            }
         }
         return this;
     }
@@ -114,11 +133,16 @@ public class TextEditManager {
      * List<EditSupernatant> data = new ArrayList<EditSupernatant>();
      * data.add(new EditSupernatant(null,R.mipmap.icon_bubble_text,R.mipmap.icon_bubble_text));
      * }</pre>
+     *
      * @param data 背景数据
      */
     public TextEditManager setBackgroundResouce(List<EditSupernatant> data) {
-        view.setBgResouce(data);
-        SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置背景参数，设置成功");
+        if (data == null) {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        } else {
+            view.setBgResouce(data);
+            SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置背景参数，设置成功");
+        }
         return this;
     }
 
@@ -133,8 +157,12 @@ public class TextEditManager {
      * @param data 字体数据
      */
     public TextEditManager setFontResouce(List<EditSupernatant> data) {
-        view.setFontResouce(data);
-        SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置字体参数，设置成功");
+        if (data == null) {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        } else {
+            view.setFontResouce(data);
+            SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置字体参数，设置成功");
+        }
         return this;
     }
 
@@ -144,12 +172,17 @@ public class TextEditManager {
      *  new EditSupernatant(1.0f) 间距对象
      *  new EditSupernatant("六号", 18) 字号对象
      *   }</pre>
+     *
      * @param fontSize 字号数据
-     * @param spacing 间距数据
+     * @param spacing  间距数据
      */
     public TextEditManager setAlignResouce(List<EditSupernatant> fontSize, List<EditSupernatant> spacing) {
-        view.setAlignResouce(fontSize,spacing);
-        SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置对齐等参数，设置成功");
+        if (spacing == null || fontSize == null) {
+            SuperNatantLog.d(getClass().getSimpleName() + "参数传递为空");
+        } else {
+            view.setAlignResouce(fontSize, spacing);
+            SuperNatantLog.d(getClass().getSimpleName() + "默认UI设置对齐等参数，设置成功");
+        }
         return this;
     }
 
