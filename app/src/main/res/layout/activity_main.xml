@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -48,40 +49,17 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <RadioGroup
-        android:id="@+id/id_main_radio_group"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/id_main_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dr_radiogroup_bg"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
-        <RadioButton
-            android:id="@+id/id_main_radio_text_edit"
-            style="@style/SelectRadioButton"
-            android:drawableTop="@drawable/dr_textedit_select"
-            android:text="文字上" />
-
-        <RadioButton
-            android:id="@+id/id_main_radio_text_down"
-            style="@style/SelectRadioButton"
-            android:drawableTop="@drawable/dr_textedit_select"
-            android:text="下" />
-
-        <RadioButton
-            android:id="@+id/id_main_radio_text_left"
-            style="@style/SelectRadioButton"
-            android:drawableTop="@drawable/dr_textedit_select"
-            android:text="左" />
-
-        <RadioButton
-            android:id="@+id/id_main_radio_text_right"
-            style="@style/SelectRadioButton"
-            android:drawableTop="@drawable/dr_textedit_select"
-            android:text="右" />
-
-    </RadioGroup>
-
+        android:layout_height="48dp"
+        app:tabBackground="@color/tanant_show_sel"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="scrollable"
+        app:tabPadding="4dp"
+        app:tabSelectedTextColor="@color/tanant_show_orange"
+        app:tabTextColor="@color/tanant_show_sel" />
 
     <RelativeLayout
         android:id="@+id/id_main_parent"

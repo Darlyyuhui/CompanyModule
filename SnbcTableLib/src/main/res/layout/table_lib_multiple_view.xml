@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/table_lib_fragmnet_background"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/table_lib_reduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/table_lib_reduce_selector"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/table_lib_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/table_lib_text_color"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/table_lib_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/table_lib_add_selector"
+        android:padding="10dp"/>
+
+</LinearLayout>

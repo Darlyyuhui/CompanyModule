@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/table_lib_fragmnet_background"
+    android:padding="10dp"
+    android:scrollbars="none">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/table_lib_fragment_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/table_lib_vertically_selector" />
+
+        <ImageView
+            android:id="@+id/table_lib_fragment_horizontal"
+            android:layout_width="wrap_content"
+            android:padding="10dp"
+            android:layout_toLeftOf="@id/table_lib_fragment_vertical"
+            android:layout_height="wrap_content"
+            android:src="@drawable/table_lib_horizontally_selector" />
+
+        <LinearLayout
+            android:id="@+id/table_lib_liner_cloumn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行数："
+                android:textColor="@color/table_lib_show_sel" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.AddRemoveMultipleView
+                android:id="@+id/table_lib_fragment_cloumn"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/table_lib_liner_row"
+            android:layout_width="match_parent"
+            android:layout_below="@id/table_lib_liner_cloumn"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行数："
+                android:textColor="@color/table_lib_show_sel" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.AddRemoveMultipleView
+                android:id="@+id/table_lib_fragment_row"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/table_lib_liner_out"
+            android:layout_width="match_parent"
+            android:layout_below="@id/table_lib_liner_row"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表格外框："
+                android:textColor="@color/table_lib_show_sel" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.TableLineView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/table_lib_liner_out"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表格内框："
+                android:textColor="@color/table_lib_show_sel" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.TableLineView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

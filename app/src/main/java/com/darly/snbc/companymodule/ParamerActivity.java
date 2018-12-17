@@ -3,6 +3,7 @@ package com.darly.snbc.companymodule;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -14,8 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,6 +23,9 @@ import android.widget.Toast;
 import com.darly.snbc.base.BaseActivity;
 import com.darly.snbc.widget.text.OnDoubleClickListener;
 import com.darly.snbc.widget.text.TextEditBackgroundView;
+import com.newbeiyang.snbc.tablelib.TableEditManager;
+import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
+import com.newbeiyang.snbc.tablelib.common.listener.TableEditListener;
 import com.newbeiyang.snbc.textlib.TextEditManager;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
 import com.newbeiyang.snbc.textlib.bean.SuperNatantMenu;
@@ -43,18 +45,16 @@ import java.util.List;
  * 公司：山东新北洋信息技术股份有限公司西安分公司
  * 邮箱：zhangyuhui@newbeiyang.com
  */
-public class ParamerActivity extends BaseActivity implements View.OnClickListener, TextEditSupernatantListener, RadioGroup.OnCheckedChangeListener {
+public class ParamerActivity extends BaseActivity implements View.OnClickListener, TextEditSupernatantListener, TabLayout.OnTabSelectedListener, TableEditListener {
     EditText id_main_edit;
     ImageView id_main_edit_view_gone;
-    RadioGroup id_main_radio_group;
-    RadioButton id_main_radio_text_edit;
-    RadioButton id_main_radio_text_down;
-    RadioButton id_main_radio_text_left;
-    RadioButton id_main_radio_text_right;
+    TabLayout id_main_tab;
+
     RelativeLayout id_main_parent;
     LinearLayout id_main_content;
     ScrollView id_main_scroll;
     TextEditManager manager;
+    private TableEditManager tableEditManager;
 
     private Handler handler;
 
@@ -64,11 +64,7 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        id_main_radio_group = findViewById(R.id.id_main_radio_group);
-        id_main_radio_text_edit = findViewById(R.id.id_main_radio_text_edit);
-        id_main_radio_text_down = findViewById(R.id.id_main_radio_text_down);
-        id_main_radio_text_left = findViewById(R.id.id_main_radio_text_left);
-        id_main_radio_text_right = findViewById(R.id.id_main_radio_text_right);
+        id_main_tab = findViewById(R.id.id_main_tab);
         id_main_edit = findViewById(R.id.id_main_edit);
         id_main_edit_view_gone = findViewById(R.id.id_main_edit_view_gone);
         id_main_parent = findViewById(R.id.id_main_parent);
@@ -80,15 +76,26 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void loadData() {
 
+        TabLayout.Tab textEdit = id_main_tab.newTab();
+        textEdit.setIcon(R.mipmap.icon_text);
+        textEdit.setText("文字");
+        id_main_tab.addTab(textEdit);
+
+        TabLayout.Tab tableEdit = id_main_tab.newTab();
+        tableEdit.setIcon(R.mipmap.icon_form);
+        tableEdit.setText("表格");
+        id_main_tab.addTab(tableEdit);
+
+
         handler = new Handler();
         manager = new TextEditManager(BuildConfig.DEBUG, this, getPackageName());
         manager.init(id_main_parent).setListener(this);
         //设置菜单
         List<SuperNatantMenu> menusD = new ArrayList<>();
         Collections.addAll(menusD
-                , new SuperNatantMenu(SuperNatantConstant.MENU_FT,"加", com.newbeiyang.snbc.textlib.R.mipmap.icon_font_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_font_unselected, com.newbeiyang.snbc.textlib.R.drawable.natant_font_select)
-                , new SuperNatantMenu(SuperNatantConstant.MENU_AN,"减", com.newbeiyang.snbc.textlib.R.mipmap.icon_align_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_align_unselected, com.newbeiyang.snbc.textlib.R.drawable.natant_align_select)
-        ,new SuperNatantMenu(SuperNatantConstant.MENU_BG,"乘", com.newbeiyang.snbc.textlib.R.mipmap.icon_bubble_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_bubble_normal, com.newbeiyang.snbc.textlib.R.drawable.natant_bubble_select));
+                , new SuperNatantMenu(SuperNatantConstant.MENU_FT, "加", com.newbeiyang.snbc.textlib.R.mipmap.icon_font_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_font_unselected, com.newbeiyang.snbc.textlib.R.drawable.natant_font_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_AN, "减", com.newbeiyang.snbc.textlib.R.mipmap.icon_align_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_align_unselected, com.newbeiyang.snbc.textlib.R.drawable.natant_align_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_BG, "乘", com.newbeiyang.snbc.textlib.R.mipmap.icon_bubble_selected, com.newbeiyang.snbc.textlib.R.mipmap.icon_bubble_normal, com.newbeiyang.snbc.textlib.R.drawable.natant_bubble_select));
         manager.setMenu(menusD);
 
         //设置背景参数
@@ -123,24 +130,26 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
                 , new EditSupernatant(4.0f)
                 , new EditSupernatant(5.0f)
                 , new EditSupernatant(6.0f));
-        manager.setAlignResouce(menus,libs);
+        manager.setAlignResouce(menus, libs);
+
+
+        tableEditManager = new TableEditManager(BuildConfig.DEBUG, this, getPackageName());
+        tableEditManager.init(id_main_parent).setListener(this);
     }
 
     @Override
     protected void initListener() {
-        id_main_radio_group.setOnCheckedChangeListener(this);
+        id_main_tab.addOnTabSelectedListener(this);
         id_main_edit_view_gone.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.id_main_edit_view_gone:
-                id_main_radio_text_edit.setChecked(false);
-                id_main_radio_text_down.setChecked(false);
-                id_main_radio_text_left.setChecked(false);
-                id_main_radio_text_right.setChecked(false);
                 manager.dismiss();
+                tableEditManager.dismiss();
                 id_main_edit_view_gone.setVisibility(View.GONE);
                 break;
         }
@@ -251,43 +260,6 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.id_main_radio_text_edit:
-                id_main_radio_text_edit.setSelected(true);
-                id_main_radio_text_down.setSelected(false);
-                id_main_radio_text_left.setSelected(false);
-                id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIOTOP).show();
-                break;
-            case R.id.id_main_radio_text_down:
-                id_main_radio_text_edit.setSelected(false);
-                id_main_radio_text_down.setSelected(true);
-                id_main_radio_text_left.setSelected(false);
-                id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIODOWN).show();
-                break;
-            case R.id.id_main_radio_text_left:
-                id_main_radio_text_edit.setSelected(false);
-                id_main_radio_text_down.setSelected(false);
-                id_main_radio_text_left.setSelected(true);
-                id_main_radio_text_right.setSelected(false);
-                manager.setMenuPostion(SuperNatantEnum.RADIOLEFT).show();
-                break;
-            case R.id.id_main_radio_text_right:
-                id_main_radio_text_edit.setSelected(false);
-                id_main_radio_text_down.setSelected(false);
-                id_main_radio_text_left.setSelected(false);
-                id_main_radio_text_right.setSelected(true);
-                manager.setMenuPostion(SuperNatantEnum.RADIORIGHT).show();
-                break;
-            default:
-                break;
-        }
-        id_main_edit_view_gone.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public void onSelectSupernatant(EditSupernatant supernatant, SuperNatantEnum type) {
@@ -304,5 +276,30 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        if ("文字".equals(tab.getText().toString().trim())) {
+            manager.setMenuPostion(SuperNatantEnum.RADIOTOP).show();
+        } else if ("表格".equals(tab.getText().toString().trim())) {
+            tableEditManager.show();
+        }
+        id_main_edit_view_gone.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTableCreate(TableEditBean tableEditBean) {
+
     }
 }

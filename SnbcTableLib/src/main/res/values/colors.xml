@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="table_lib_count">#FF4081</color>
+    <color name="table_lib_text_color">#2b2b2b</color>
+    <color name="table_lib_show_nor">#ffffff</color>
+    <color name="table_lib_show_sel">#aaaaaa</color>
+    <color name="table_lib_show_orange">#ffff8800</color>
+    <color name="table_lib_transparent">#00000000</color>
+    <color name="table_lib_fragmnet_background">#ffffee</color>
+</resources>

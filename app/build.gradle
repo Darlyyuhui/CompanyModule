@@ -35,4 +35,5 @@ dependencies {
     //api(name:'SnbcTextLib-release',ext:'aar')
     implementation project(':SnbcTextLib')
     //implementation 'com.newbeiyang.snbc.textlib:SnbcTextLib:1.0.0'
+    implementation project(':SnbcTableLib')
 }
