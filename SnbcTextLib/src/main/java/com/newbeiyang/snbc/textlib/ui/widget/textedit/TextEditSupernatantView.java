@@ -112,16 +112,16 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         id_supernatant_tab_vertical = findViewById(R.id.id_supernatant_tab_vertical);
 
         List<SuperNatantMenu> menus = new ArrayList<>();
-        Collections.addAll(menus, new SuperNatantMenu(SuperNatantConstant.MENU_BG,null, R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal, R.drawable.natant_bubble_select)
-                , new SuperNatantMenu(SuperNatantConstant.MENU_FT,null, R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected, R.drawable.natant_font_select)
-                , new SuperNatantMenu(SuperNatantConstant.MENU_AN,null, R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected, R.drawable.natant_align_select));
+        Collections.addAll(menus, new SuperNatantMenu(SuperNatantConstant.MENU_BG, null, R.mipmap.icon_bubble_selected, R.mipmap.icon_bubble_normal, R.drawable.natant_bubble_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_FT, null, R.mipmap.icon_font_selected, R.mipmap.icon_font_unselected, R.drawable.natant_font_select)
+                , new SuperNatantMenu(SuperNatantConstant.MENU_AN, null, R.mipmap.icon_align_selected, R.mipmap.icon_align_unselected, R.drawable.natant_align_select));
 
         id_supernatant_tab_vertical.setTabAdapter(new MyTabAdapter(menus));
 
         for (SuperNatantMenu mes : menus) {
             TabLayout.Tab bg = id_supernatant_tab.newTab();
             bg.setTag(mes.getType());
-            if (!TextUtils.isEmpty(mes.getName())){
+            if (!TextUtils.isEmpty(mes.getName())) {
                 bg.setText(mes.getName());
             }
             if (mes.getSelectDrawable() != 0) {
@@ -142,7 +142,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         switchFragment(bgFragment).commit();
 
         initListener();
-        SuperNatantLog.d(getClass().getSimpleName()+"界面初始化完成");
+        SuperNatantLog.d(getClass().getSimpleName() + "界面初始化完成");
     }
 
     //监听
@@ -153,25 +153,7 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         alignFragment.setAlignListener(this);
 
         id_supernatant_tab.addOnTabSelectedListener(this);
-        id_supernatant_tab_vertical.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabView tab, int position) {
-                if (SuperNatantConstant.MENU_BG.equals(tab.getIcon().getTag())) {
-                    switchFragment(bgFragment).commit();
-                } else if (SuperNatantConstant.MENU_FT.equals(tab.getIcon().getTag())) {
-                    switchFragment(fontFragment).commit();
-                } else if (SuperNatantConstant.MENU_AN.equals(tab.getIcon().getTag())) {
-                    switchFragment(alignFragment).commit();
-                } else {
-                    switchFragment(spacingFragment).commit();
-                }
-            }
-
-            @Override
-            public void onTabReselected(TabView tab, int position) {
-
-            }
-        });
+        id_supernatant_tab_vertical.addOnTabSelectedListener(onSelectListener);
     }
 
 
@@ -182,11 +164,14 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
 
     /**
      * 进行子菜单更新
+     *
      * @param menusData 菜单数据
      */
     public void updateMenu(List<SuperNatantMenu> menusData) {
-        if (menusData!= null&&menusData.size() == 3) {
+        if (menusData != null && menusData.size() == 3) {
+            id_supernatant_tab_vertical.removeOnTabSelectedListener(onSelectListener);
             id_supernatant_tab_vertical.setTabAdapter(new MyTabAdapter(menusData));
+            id_supernatant_tab.removeOnTabSelectedListener(this);
             id_supernatant_tab.removeAllTabs();
             for (SuperNatantMenu mes : menusData) {
                 TabLayout.Tab bg = id_supernatant_tab.newTab();
@@ -199,6 +184,8 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
                 }
                 id_supernatant_tab.addTab(bg);
             }
+            id_supernatant_tab.addOnTabSelectedListener(this);
+            id_supernatant_tab_vertical.addOnTabSelectedListener(onSelectListener);
         }
     }
 
@@ -383,6 +370,27 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
 
     }
 
+    private VerticalTabLayout.OnTabSelectedListener onSelectListener = new VerticalTabLayout.OnTabSelectedListener() {
+
+        @Override
+        public void onTabSelected(TabView tab, int position) {
+            if (SuperNatantConstant.MENU_BG.equals(tab.getIcon().getTag())) {
+                switchFragment(bgFragment).commit();
+            } else if (SuperNatantConstant.MENU_FT.equals(tab.getIcon().getTag())) {
+                switchFragment(fontFragment).commit();
+            } else if (SuperNatantConstant.MENU_AN.equals(tab.getIcon().getTag())) {
+                switchFragment(alignFragment).commit();
+            } else {
+                switchFragment(spacingFragment).commit();
+            }
+        }
+
+        @Override
+        public void onTabReselected(TabView tab, int position) {
+
+        }
+    };
+
     /**
      * 设置背景资源
      *
@@ -436,8 +444,6 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
     }
 
 
-
-
     private class MyTabAdapter implements TabAdapter {
 
         List<SuperNatantMenu> menus;
@@ -469,9 +475,9 @@ public class TextEditSupernatantView extends RelativeLayout implements OnEditSup
         @Override
         public TabView.TabTitle getTitle(int position) {
             SuperNatantMenu menu = menus.get(position);
-            if (TextUtils.isEmpty(menu.getName())){
+            if (TextUtils.isEmpty(menu.getName())) {
                 return new TabView.TabTitle.Builder().build();
-            }else {
+            } else {
                 return new TabView.TabTitle.Builder().setContent(menu.getName()).build();
             }
 

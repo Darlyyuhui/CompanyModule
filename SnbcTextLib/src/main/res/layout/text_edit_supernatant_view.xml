@@ -17,6 +17,7 @@
         android:layout_height="48dp"
         android:background="@color/tanant_show_nor"
         app:tabIndicatorColor="@color/tanant_show_orange"
+        app:tabTextColor="@color/tanant_text_color"
         app:tabMode="scrollable" />
 
     <com.newbeiyang.snbc.textlib.ui.widget.verticaltablayout.VerticalTabLayout
@@ -27,6 +28,7 @@
         app:indicator_color="@color/tanant_show_orange"
         app:tab_height="48dp"
         app:tab_mode="scrollable"
+        app:tabTextColor="@color/tanant_text_color"
         android:visibility="gone"/>
 
     <View
