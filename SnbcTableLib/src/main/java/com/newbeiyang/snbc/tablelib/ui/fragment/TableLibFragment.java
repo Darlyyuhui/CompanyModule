@@ -86,7 +86,7 @@ public class TableLibFragment extends BaseTableFragment implements View.OnClickL
 
             @Override
             public void onMinus() {
-                TableEditBean bean = new TableEditBean(table_lib_fragment_cloumn.getResult(), 0);
+                TableEditBean bean = new TableEditBean(0, table_lib_fragment_row.getResult());
                 onTableSelectListener.onSelect(bean, TableEditEnum.TABLE_CLOUMN_ROW_MINUS);
             }
         });

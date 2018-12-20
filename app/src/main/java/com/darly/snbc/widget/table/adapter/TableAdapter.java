@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -20,14 +19,15 @@ import java.util.List;
  */
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> {
 
-    public interface OnItemClickListener{
-        void itemClick(TextView tv,int position);
+    public interface OnItemClickListener {
+        void itemClick(TextView tv, int position);
     }
 
     private List<String> mDatas;
     private static int row;
 
     private OnItemClickListener listener;
+
     public TableAdapter(List<String> data, int row) {
         this.mDatas = data;
         this.row = row;
@@ -54,12 +54,19 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
         if (recover == null) {
             return;
         }
+        if (row > 1) {
+            TableRow.LayoutParams rl = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SupernatantCfg.getWidth() / (2 * row));
+            viewHolder.id_excel_liner.setLayoutParams(rl);
+        } else {
+            TableRow.LayoutParams rl = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            viewHolder.id_excel_liner.setLayoutParams(rl);
+        }
         viewHolder.title.setText(recover);
         viewHolder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener!=null){
-                    listener.itemClick(viewHolder.title,position);
+                if (listener != null) {
+                    listener.itemClick(viewHolder.title, position);
                 }
             }
         });
@@ -80,10 +87,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
             super(v);
             id_excel_liner = v.findViewById(R.id.id_excel_liner);
             title = (TextView) v.findViewById(R.id.id_excel_edit);
-            if (row > 1) {
-                TableRow.LayoutParams rl = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SupernatantCfg.getWidth() / (2 * row));
-                id_excel_liner.setLayoutParams(rl);
-            }
         }
     }
 

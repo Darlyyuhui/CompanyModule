@@ -409,8 +409,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 //点击输入文字
                 SuperNatantLog.d(getClass().getSimpleName() + "点击输入文字");
                 tv.setText("测试汉字");
-
-
                 //获取焦点
                 tableLayout.setFocusable(true);
                 tableLayout.setFocusableInTouchMode(true);

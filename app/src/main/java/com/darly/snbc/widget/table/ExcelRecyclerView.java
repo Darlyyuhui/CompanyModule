@@ -29,9 +29,6 @@ public class ExcelRecyclerView extends RecyclerView {
     private GridInsideDivider mInsideDivider;
     private GridOutsideDivider mOutsideDivider;
     private int mRow = 3;
-    float startX;
-    float startY;
-
 
     public ExcelRecyclerView(@NonNull Context context) {
         super(context);
@@ -47,9 +44,9 @@ public class ExcelRecyclerView extends RecyclerView {
         while (i < this.mColumn) {
             int j = 0;
             while (j < this.mRow) {
-                if (i==0&&j ==0){
+                if (i == 0 && j == 0) {
                     localArrayList.add("请点击输入文字");
-                }else {
+                } else {
                     localArrayList.add("");
                 }
                 j += 1;
@@ -95,7 +92,10 @@ public class ExcelRecyclerView extends RecyclerView {
             i += 1;
         }
         this.mRow += 1;
-        this.mAdapter.notifyDataSetChanged();
+        setLayoutManager(new GridLayoutManager(getContext(), this.mColumn));
+        this.mAdapter.setNewData(mAdapter.getData(), mRow);
+        setInsideDivider(this.mInsideDivider);
+        setOutsideDivider(this.mOutsideDivider);
     }
 
     public void deleteColumn() {
@@ -131,7 +131,10 @@ public class ExcelRecyclerView extends RecyclerView {
             i += 1;
         }
         this.mRow -= 1;
-        this.mAdapter.notifyDataSetChanged();
+        setLayoutManager(new GridLayoutManager(getContext(), this.mColumn));
+        this.mAdapter.setNewData(mAdapter.getData(), mRow);
+        setInsideDivider(this.mInsideDivider);
+        setOutsideDivider(this.mOutsideDivider);
     }
 
 
@@ -172,7 +175,7 @@ public class ExcelRecyclerView extends RecyclerView {
     }
 
 
-    public void setOnItemClickListener(TableAdapter.OnItemClickListener listener){
+    public void setOnItemClickListener(TableAdapter.OnItemClickListener listener) {
         mAdapter.setOnItemClickListener(listener);
     }
 }
