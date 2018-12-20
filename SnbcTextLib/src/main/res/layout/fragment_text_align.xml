@@ -64,8 +64,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_natant_text_cu_select"
                 android:button="@null"
-                android:padding="10dp"
-                android:scaleType="center" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="0dp"

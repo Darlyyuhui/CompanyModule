@@ -1,1 +1,1 @@
-include ':app', ':SnbcTextLib', ':SnbcTableLib'
+include ':app', ':SnbcTextLib', ':SnbcTableLib', ':RecyclerViewLib'

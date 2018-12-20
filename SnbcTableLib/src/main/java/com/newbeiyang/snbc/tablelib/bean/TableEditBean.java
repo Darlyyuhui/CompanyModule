@@ -17,17 +17,40 @@ public class TableEditBean {
     private String texts;
     //内边框颜色
     private int incolor;
-    //内边框类型
+    //线条样式0细线无缝隙
+    //线条样式1粗线无缝隙
+    //线条样式2大缝隙
+    //线条样式3小缝隙
     private int intype;
     //外边框颜色
     private int extcolor;
-    //外边框类型
+    //线条样式0细线无缝隙
+    //线条样式1粗线无缝隙
+    //线条样式2大缝隙
+    //线条样式3小缝隙
     private int exttype;
+
+    public TableEditBean() {
+    }
+
+    //修改行列数来着构造函数
+    public TableEditBean(int cloumn, int row) {
+        this.cloumn = cloumn;
+        this.row = row;
+    }
 
     public TableEditBean(int cloumn, int row, String texts, int incolor, int intype, int extcolor, int exttype) {
         this.cloumn = cloumn;
         this.row = row;
         this.texts = texts;
+        this.incolor = incolor;
+        this.intype = intype;
+        this.extcolor = extcolor;
+        this.exttype = exttype;
+    }
+
+    //边框修改构造函数
+    public TableEditBean(int incolor, int intype, int extcolor, int exttype) {
         this.incolor = incolor;
         this.intype = intype;
         this.extcolor = extcolor;

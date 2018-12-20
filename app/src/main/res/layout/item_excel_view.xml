@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_excel_liner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/id_excel_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/snbcprint"
+        android:textColor="@android:color/black"/>
+
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.newbeiyang.snbc.tablelib.R;
 import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
+import com.newbeiyang.snbc.tablelib.common.TableEditEnum;
 import com.newbeiyang.snbc.tablelib.common.listener.OnTableSelectListener;
 import com.newbeiyang.snbc.tablelib.common.listener.TableEditListener;
 import com.newbeiyang.snbc.tablelib.ui.fragment.BaseTableFragment;
@@ -90,6 +91,7 @@ public class TableEditView extends RelativeLayout implements OnTableSelectListen
         this.tableEditListener = tableEditListener;
     }
 
+
     /**
      * 优化切换Fragment方案。
      *
@@ -113,10 +115,14 @@ public class TableEditView extends RelativeLayout implements OnTableSelectListen
     }
 
 
+    public void setParamer(TableEditBean paramer) {
+        tableFragment.setDefaultCount(paramer.getCloumn(), paramer.getRow());
+    }
+
     @Override
-    public void onSelect(TableEditBean bean) {
+    public void onSelect(TableEditBean tableEditBean, TableEditEnum direction) {
         if (tableEditListener != null) {
-            tableEditListener.onTableCreate(bean);
+            tableEditListener.onTableCreate(tableEditBean,direction);
         }
     }
 }

@@ -73,6 +73,7 @@ public abstract class BaseTableFragment extends Fragment {
      */
     protected abstract void initListener();
 
+    public abstract void setDefaultCount(int column, int row);
 
     public abstract void setOnTableSelectListener(OnTableSelectListener listener);
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/table_lib_line_iv"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layerType="software"
+        android:background="@drawable/shape_line_default4"/>
+</LinearLayout>

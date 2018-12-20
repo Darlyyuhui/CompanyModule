@@ -25,6 +25,7 @@ import com.darly.snbc.widget.text.OnDoubleClickListener;
 import com.darly.snbc.widget.text.TextEditBackgroundView;
 import com.newbeiyang.snbc.tablelib.TableEditManager;
 import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
+import com.newbeiyang.snbc.tablelib.common.TableEditEnum;
 import com.newbeiyang.snbc.tablelib.common.listener.TableEditListener;
 import com.newbeiyang.snbc.textlib.TextEditManager;
 import com.newbeiyang.snbc.textlib.bean.EditSupernatant;
@@ -299,7 +300,7 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onTableCreate(TableEditBean tableEditBean) {
+    public void onTableCreate(TableEditBean tableEditBean, TableEditEnum direction) {
 
     }
 }

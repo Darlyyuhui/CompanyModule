@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.newbeiyang.snbc.tablelib.R;
+import com.newbeiyang.snbc.tablelib.common.listener.AddRemoveMultipleListener;
 
 /**
  * 加减按钮，以及输入输出
@@ -34,9 +35,12 @@ public class AddRemoveMultipleView extends LinearLayout {
 
     private int min = 1;
 
-    private int max = 10;
+    private int max = 8;
 
     private int cout = min;
+
+
+    private AddRemoveMultipleListener listener;
 
     public AddRemoveMultipleView(Context context) {
         super(context);
@@ -78,28 +82,38 @@ public class AddRemoveMultipleView extends LinearLayout {
         table_lib_reduce.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (cout <= min) {
+                    table_lib_reduce.setClickable(false);
                     return;
                 } else {
+                    table_lib_add.setClickable(true);
                     cout--;
                     table_lib_result.setText(String.valueOf(cout));
+                    if (listener !=null) {
+                        listener.onMinus();
+                    }
                 }
             }
         });
         table_lib_add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (cout >= max) {
+                    table_lib_add.setClickable(false);
                     return;
                 } else {
+                    table_lib_reduce.setClickable(true);
                     cout++;
                     table_lib_result.setText(String.valueOf(cout));
+                    if (listener !=null) {
+                        listener.onAdd();
+                    }
                 }
             }
         });
     }
+
+
 
 
     public int getMin() {
@@ -120,5 +134,13 @@ public class AddRemoveMultipleView extends LinearLayout {
 
     public int getResult() {
         return cout;
+    }
+
+    public void setDefaultCount(int cout){
+        this.cout = cout;
+    }
+
+    public void setAddRemoveMultipleListener(AddRemoveMultipleListener addRemoveMultipleListener){
+        listener = addRemoveMultipleListener;
     }
 }

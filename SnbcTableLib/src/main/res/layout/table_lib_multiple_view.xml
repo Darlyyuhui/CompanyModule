@@ -5,7 +5,7 @@
     android:background="@color/table_lib_fragmnet_background"
     android:orientation="horizontal"
     android:gravity="center"
-    android:padding="10dp">
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/table_lib_reduce"

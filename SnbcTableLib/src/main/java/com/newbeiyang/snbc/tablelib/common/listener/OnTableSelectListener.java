@@ -1,6 +1,7 @@
 package com.newbeiyang.snbc.tablelib.common.listener;
 
 import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
+import com.newbeiyang.snbc.tablelib.common.TableEditEnum;
 
 /**
  * Fragment中选中Table后，传递出去。
@@ -12,5 +13,6 @@ import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
  */
 public interface OnTableSelectListener {
 
-    void onSelect(TableEditBean bean);
+    void onSelect(TableEditBean tableEditBean,TableEditEnum direction);
+
 }

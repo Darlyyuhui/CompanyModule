@@ -1,6 +1,7 @@
 package com.newbeiyang.snbc.tablelib.common.listener;
 
 import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
+import com.newbeiyang.snbc.tablelib.common.TableEditEnum;
 
 /**
  * 表格选择回调接口
@@ -12,6 +13,6 @@ import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
  */
 public interface TableEditListener {
     //Table点击后回调，根据返回参数建立表格
-    void onTableCreate(TableEditBean tableEditBean);
+    void onTableCreate(TableEditBean tableEditBean,TableEditEnum direction);
 
 }

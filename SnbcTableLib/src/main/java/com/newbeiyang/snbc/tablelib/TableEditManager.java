@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
 import com.newbeiyang.snbc.tablelib.common.listener.TableEditListener;
 import com.newbeiyang.snbc.tablelib.ui.widget.TableEditView;
 
@@ -39,6 +40,16 @@ public class TableEditManager {
     public TableEditManager setListener(TableEditListener tableEditListener) {
         view.setTableEditListener(tableEditListener);
         Log.d(getClass().getSimpleName(), "管理类设置监听成功");
+        return this;
+    }
+
+
+    public TableEditManager setParamer(TableEditBean paramer){
+        if (paramer == null){
+
+        }else {
+            view.setParamer(paramer);
+        }
         return this;
     }
 
