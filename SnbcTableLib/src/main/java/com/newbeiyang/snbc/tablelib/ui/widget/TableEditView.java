@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -109,7 +108,6 @@ public class TableEditView extends RelativeLayout implements OnTableSelectListen
         } else {
             ft.hide(currentFragment).show(fragment);
         }
-        Log.d(getClass().getSimpleName(), currentFragment + "进行界面选择切换" + fragment);
         currentFragment = fragment;
         return ft;
     }

@@ -24,30 +24,54 @@ public class TableEditManager {
 
     private Context context;
 
+    private boolean debug;
+
+    private String logName = "TableLib";
+
     public TableEditManager(boolean debug, Context context, String logName) {
         this.context = context;
+        this.debug = debug;
+        this.logName = logName;
     }
 
     //第一步，初始化管理类
     public TableEditManager init(ViewGroup parent) {
-        view = new TableEditView(context);
-        view.setVisibility(View.GONE);
-        parent.addView(view);
-        Log.d(getClass().getSimpleName(), "添加父组件成功");
+        if (parent == null){
+            if (debug) {
+                Log.d(logName, "参数传递为空");
+            }
+        }else {
+            view = new TableEditView(context);
+            view.setVisibility(View.GONE);
+            parent.addView(view);
+            if (debug) {
+                Log.d(logName, "添加父组件成功");
+            }
+        }
         return this;
     }
 
     //第二步，初始化监听
     public TableEditManager setListener(TableEditListener tableEditListener) {
-        view.setTableEditListener(tableEditListener);
-        Log.d(getClass().getSimpleName(), "管理类设置监听成功");
+        if (tableEditListener == null){
+            if (debug) {
+                Log.d(logName, "参数传递为空");
+            }
+        }else {
+            view.setTableEditListener(tableEditListener);
+            if (debug) {
+                Log.d(logName, "管理类设置监听成功");
+            }
+        }
         return this;
     }
 
 
     public TableEditManager setParamer(TableEditBean paramer) {
         if (paramer == null) {
-            Log.d(getClass().getSimpleName(), "参数传递为空");
+            if (debug) {
+                Log.d(logName, "参数传递为空");
+            }
         } else {
             view.setParamer(paramer);
         }
@@ -58,11 +82,13 @@ public class TableEditManager {
      * 设置自定义布局，传递进入Fragment，进行自定义布局展示。但是回调方法还是走历史路径
      *
      * @param fragment   自定义的布局
-     * @param natantEnum 布局类型
+     * @return   TableEditManager 返回管理类
      */
     public TableEditManager setView(BaseTableFragment fragment) {
         if (fragment == null) {
-            Log.d(getClass().getSimpleName(), "参数传递为空");
+            if (debug) {
+                Log.d(logName, "参数传递为空");
+            }
         } else {
             //自定义背景界面
             view.setFragmentView(fragment);
@@ -82,7 +108,9 @@ public class TableEditManager {
 
     public void resetFocuss(TableEditBean paramer) {
         if (paramer == null) {
-            Log.d(getClass().getSimpleName(), "参数传递为空");
+            if (debug) {
+                Log.d(logName, "参数传递为空");
+            }
             return;
         }
         view.resetFocuss(paramer);

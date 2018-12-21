@@ -6,10 +6,8 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -95,9 +93,6 @@ public class TableLineView extends LinearLayout {
         table_line_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (lineListener == null) {
-                    Log.d(getClass().getSimpleName(), "接口未初始化");
-                }
                 //点选修改
                 if (checkedId == table_line_radio_blank.getId()) {
                     lineColor = Color.BLACK;

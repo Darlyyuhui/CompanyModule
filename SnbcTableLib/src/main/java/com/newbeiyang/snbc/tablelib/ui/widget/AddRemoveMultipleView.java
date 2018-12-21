@@ -1,7 +1,6 @@
 package com.newbeiyang.snbc.tablelib.ui.widget;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
