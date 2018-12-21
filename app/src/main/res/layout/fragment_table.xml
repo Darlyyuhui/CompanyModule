@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tanant_fragmnet_background"
+    android:padding="10dp"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/id_table_fragment_liner_int"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_lib_out"
+                android:textColor="@color/table_lib_text_color" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.TableLineView
+                android:id="@+id/id_table_fragment_fragment_out_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_table_fragment_liner_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_table_fragment_liner_int"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_lib_in"
+                android:textColor="@color/table_lib_text_color" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.TableLineView
+                android:id="@+id/id_table_fragment_fragment_in_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/id_table_fragment_liner_row"
+            android:layout_width="match_parent"
+            android:layout_below="@id/id_table_fragment_liner_out"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_lib_row"
+                android:textColor="@color/table_lib_text_color" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.AddRemoveMultipleView
+                android:id="@+id/id_table_fragment_fragment_row"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <ImageView
+                android:id="@+id/id_table_fragment_fragment_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/table_lib_vertically_selector" />
+
+            <ImageView
+                android:id="@+id/id_table_fragment_fragment_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/table_lib_horizontally_selector" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_table_fragment_liner_cloumn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_table_fragment_liner_row"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_lib_cloumn"
+                android:textColor="@color/table_lib_text_color" />
+
+            <com.newbeiyang.snbc.tablelib.ui.widget.AddRemoveMultipleView
+                android:id="@+id/id_table_fragment_fragment_cloumn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/table_lib_vertically_selector"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/table_lib_horizontally_selector"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+</ScrollView>

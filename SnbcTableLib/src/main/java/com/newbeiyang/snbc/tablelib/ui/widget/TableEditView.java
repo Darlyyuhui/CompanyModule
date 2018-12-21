@@ -119,10 +119,21 @@ public class TableEditView extends RelativeLayout implements OnTableSelectListen
         tableFragment.setDefaultCount(paramer.getCloumn(), paramer.getRow());
     }
 
+    public void resetFocuss(TableEditBean paramer) {
+        tableFragment.resetFocuss(paramer);
+    }
+
     @Override
     public void onSelect(TableEditBean tableEditBean, TableEditEnum direction) {
         if (tableEditListener != null) {
-            tableEditListener.onTableCreate(tableEditBean,direction);
+            tableEditListener.onTableCreate(tableEditBean, direction);
         }
     }
+
+    public void setFragmentView(BaseTableFragment fragment) {
+        tableFragment = fragment;
+        tableFragment.setOnTableSelectListener(this);
+        fm.beginTransaction().add(R.id.table_lib_frame, fragment).commit();
+    }
+
 }

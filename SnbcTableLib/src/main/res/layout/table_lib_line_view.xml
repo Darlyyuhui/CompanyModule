@@ -26,7 +26,7 @@
             android:layout_marginRight="10dp"
             android:layerType="software"
             android:layout_weight="1"
-            android:background="@drawable/shape_line_default4" />
+            android:background="@drawable/shape_line_default1" />
 
         <ImageView
             android:layout_width="wrap_content"

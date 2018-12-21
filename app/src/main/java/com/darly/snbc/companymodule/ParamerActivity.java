@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.darly.snbc.base.BaseActivity;
+import com.darly.snbc.widget.table.ExcelRecyclerView;
+import com.darly.snbc.widget.table.adapter.TableAdapter;
 import com.darly.snbc.widget.text.OnDoubleClickListener;
 import com.darly.snbc.widget.text.TextEditBackgroundView;
 import com.newbeiyang.snbc.tablelib.TableEditManager;
@@ -33,6 +35,8 @@ import com.newbeiyang.snbc.textlib.bean.SuperNatantMenu;
 import com.newbeiyang.snbc.textlib.common.SuperNatantConstant;
 import com.newbeiyang.snbc.textlib.common.SuperNatantEnum;
 import com.newbeiyang.snbc.textlib.common.listener.TextEditSupernatantListener;
+import com.newbeiyang.snbc.textlib.common.log.SuperNatantLog;
+import com.newbeiyang.snbc.textlib.common.observer.SupernatantCfg;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,6 +60,7 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
     ScrollView id_main_scroll;
     TextEditManager manager;
     private TableEditManager tableEditManager;
+    private ExcelRecyclerView currentTableLayout;
 
     private Handler handler;
 
@@ -136,6 +141,7 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
 
         tableEditManager = new TableEditManager(BuildConfig.DEBUG, this, getPackageName());
         tableEditManager.init(id_main_parent).setListener(this);
+        tableEditManager.setParamer(new TableEditBean(4,3));
     }
 
     @Override
@@ -302,5 +308,142 @@ public class ParamerActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onTableCreate(TableEditBean tableEditBean, TableEditEnum direction) {
 
+        switch (direction) {
+            case VERTICAL:
+                createTable(tableEditBean, true);
+                SuperNatantLog.d(getClass().getSimpleName() + "垂直表格建立成功");
+                break;
+            case HORIZONTAL:
+                createTable(tableEditBean, false);
+                SuperNatantLog.d(getClass().getSimpleName() + "水平表格建立成功");
+                break;
+            case TABLE_CLOUMN_ROW_ADD:
+                addTableCloumnRow(tableEditBean);
+                SuperNatantLog.d(getClass().getSimpleName() + "行列添加成功");
+                break;
+            case TABLE_CLOUMN_ROW_MINUS:
+                minusTableCloumnRow(tableEditBean);
+                SuperNatantLog.d(getClass().getSimpleName() + "行列移除成功");
+                break;
+            case TABLE_OUT_LINE:
+                outLine(tableEditBean);
+                SuperNatantLog.d(getClass().getSimpleName() + "外边框修改成功");
+                break;
+            case TABLE_IN_LINE:
+                outIn(tableEditBean);
+                SuperNatantLog.d(getClass().getSimpleName() + "内边框修改成功");
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 新增表格行列
+     *
+     * @param tableEditBean 简表参数
+     */
+    private void addTableCloumnRow(TableEditBean tableEditBean) {
+        if (currentTableLayout != null) {
+            if (tableEditBean.getCloumn() != 0) {
+                currentTableLayout.addColumn();
+            }
+            if (tableEditBean.getRow() != 0) {
+                currentTableLayout.addRow();
+            }
+        }
+    }
+
+    /**
+     * 删除表格行列
+     *
+     * @param tableEditBean 简表参数
+     */
+    private void minusTableCloumnRow(TableEditBean tableEditBean) {
+        if (currentTableLayout != null) {
+            if (tableEditBean.getCloumn() != 0) {
+                currentTableLayout.deleteColumn();
+            }
+            if (tableEditBean.getRow() != 0) {
+                currentTableLayout.deleteRow();
+            }
+        }
+    }
+
+    /**
+     * 修改外边框
+     *
+     * @param tableEditBean 简表参数
+     */
+    private void outLine(TableEditBean tableEditBean) {
+        if (currentTableLayout != null) {
+            currentTableLayout.setDivider(tableEditBean, true);
+        }
+    }
+
+    /**
+     * 修改内边框
+     *
+     * @param tableEditBean 简表参数
+     */
+    private void outIn(TableEditBean tableEditBean) {
+        if (currentTableLayout != null) {
+            currentTableLayout.setDivider(tableEditBean, false);
+        }
+    }
+
+
+    /**
+     * 根据条件建立表格
+     *
+     * @param isVertical    是否垂直表格
+     * @param tableEditBean 简表参数
+     */
+    private void createTable(TableEditBean tableEditBean, boolean isVertical) {
+        final ExcelRecyclerView tableLayout = new ExcelRecyclerView(this);
+        currentTableLayout = tableLayout;
+        tableLayout.initAdapter(tableEditBean.getRow(), tableEditBean.getCloumn());
+        tableLayout.setDivider(tableEditBean, true);
+        tableLayout.setDivider(tableEditBean, false);
+
+        LinearLayout.LayoutParams localLayoutParams = null;
+        if (isVertical) {
+            //垂直表格
+            tableLayout.setRotation(90);
+            localLayoutParams = new LinearLayout.LayoutParams((int) (SupernatantCfg.getWidth() / 1.5), SupernatantCfg.getWidth() / 2 + 10);
+            localLayoutParams.setMargins(50, 60, 0, 60);
+            tableLayout.setPadding(0, 10, 10, 50);
+        } else {
+            //水平表格
+            tableLayout.setPadding(10, 10, 10, 0);
+            localLayoutParams = new LinearLayout.LayoutParams((int) (SupernatantCfg.getWidth() / 1.5), SupernatantCfg.getWidth() / 2 + 10);
+            localLayoutParams.setMargins(0, 20, 0, 40);
+        }
+
+        localLayoutParams.gravity = 1;
+        id_main_content.addView(tableLayout, localLayoutParams);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                id_main_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
+        tableLayout.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
+            @Override
+            public void itemClick(TextView tv, int position) {
+                //点击输入文字
+                SuperNatantLog.d(getClass().getSimpleName() + "点击输入文字");
+                tv.setText("测试汉字");
+                tableLayout.setStringData("测试汉字", position);
+                //获取焦点
+                tableLayout.setFocusable(true);
+                tableLayout.setFocusableInTouchMode(true);
+                tableLayout.requestFocus();
+                tableLayout.requestFocusFromTouch();
+                //直接获取控件
+                currentTableLayout = tableLayout;
+                tableEditManager.resetFocuss(currentTableLayout.getBean());
+            }
+        });
     }
 }

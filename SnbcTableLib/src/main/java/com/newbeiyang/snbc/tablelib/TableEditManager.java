@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
 import com.newbeiyang.snbc.tablelib.common.listener.TableEditListener;
+import com.newbeiyang.snbc.tablelib.ui.fragment.BaseTableFragment;
 import com.newbeiyang.snbc.tablelib.ui.widget.TableEditView;
 
 /**
@@ -44,21 +45,46 @@ public class TableEditManager {
     }
 
 
-    public TableEditManager setParamer(TableEditBean paramer){
-        if (paramer == null){
-
-        }else {
+    public TableEditManager setParamer(TableEditBean paramer) {
+        if (paramer == null) {
+            Log.d(getClass().getSimpleName(), "参数传递为空");
+        } else {
             view.setParamer(paramer);
         }
         return this;
     }
 
-    public void show(){
+    /**
+     * 设置自定义布局，传递进入Fragment，进行自定义布局展示。但是回调方法还是走历史路径
+     *
+     * @param fragment   自定义的布局
+     * @param natantEnum 布局类型
+     */
+    public TableEditManager setView(BaseTableFragment fragment) {
+        if (fragment == null) {
+            Log.d(getClass().getSimpleName(), "参数传递为空");
+        } else {
+            //自定义背景界面
+            view.setFragmentView(fragment);
+            Log.d(getClass().getSimpleName() , "自定义背景界面设置成功");
+        }
+        return this;
+    }
+
+
+    public void show() {
         view.setVisibility(View.VISIBLE);
     }
 
-    public void dismiss(){
+    public void dismiss() {
         view.setVisibility(View.GONE);
     }
 
+    public void resetFocuss(TableEditBean paramer) {
+        if (paramer == null) {
+            Log.d(getClass().getSimpleName(), "参数传递为空");
+            return;
+        }
+        view.resetFocuss(paramer);
+    }
 }

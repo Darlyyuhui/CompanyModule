@@ -39,6 +39,9 @@ public class TableLibFragment extends BaseTableFragment implements View.OnClickL
 
     private TableLineView table_lib_fragment_in_line;
 
+    private int column;
+    private int row;
+
     @Override
     protected int root() {
         return R.layout.fragment_table_lib;
@@ -57,7 +60,8 @@ public class TableLibFragment extends BaseTableFragment implements View.OnClickL
 
     @Override
     protected void loadData() {
-
+        table_lib_fragment_cloumn.setDefaultCount(column);
+        table_lib_fragment_row.setDefaultCount(row);
     }
 
     @Override
@@ -112,8 +116,17 @@ public class TableLibFragment extends BaseTableFragment implements View.OnClickL
 
     @Override
     public void setDefaultCount(int column, int row) {
-        table_lib_fragment_cloumn.setDefaultCount(column);
-        table_lib_fragment_row.setDefaultCount(row);
+        this.column = column;
+        this.row = row;
+    }
+
+    @Override
+    public void resetFocuss(TableEditBean paramer) {
+        table_lib_fragment_cloumn.setDefaultCount(paramer.getCloumn());
+        table_lib_fragment_row.setDefaultCount(paramer.getRow());
+
+        table_lib_fragment_out_line.setDefaultConfig(paramer.getExtcolor(),paramer.getExttype());
+        table_lib_fragment_in_line.setDefaultConfig(paramer.getIncolor(),paramer.getIntype());
     }
 
     @Override

@@ -102,33 +102,19 @@ public class TableLineView extends LinearLayout {
                 if (checkedId == table_line_radio_blank.getId()) {
                     lineColor = Color.BLACK;
                     //选黑
-                    if (isOutLine) {
-                        bean.setExtcolor(Color.BLACK);
-                        bean.setExttype(1);
-                    } else {
-                        bean.setIncolor(Color.BLACK);
-                        bean.setIntype(1);
-                    }
                 } else if (checkedId == table_line_radio_gray.getId()) {
                     //选灰
                     lineColor = Color.GRAY;
-                    if (isOutLine) {
-                        bean.setExtcolor(Color.GRAY);
-                        bean.setExttype(1);
-                    } else {
-                        bean.setIncolor(Color.GRAY);
-                        bean.setIntype(1);
-                    }
                 } else if (checkedId == table_line_radio_white.getId()) {
                     //选白
                     lineColor = Color.WHITE;
-                    if (isOutLine) {
-                        bean.setExtcolor(Color.WHITE);
-                        bean.setExttype(1);
-                    } else {
-                        bean.setIncolor(Color.WHITE);
-                        bean.setIntype(1);
-                    }
+                }
+                if (isOutLine) {
+                    bean.setExtcolor(lineColor);
+                    bean.setExttype(lineRes);
+                } else {
+                    bean.setIncolor(lineColor);
+                    bean.setIntype(lineRes);
                 }
                 lineListener.onChecked(bean);
             }
@@ -145,9 +131,11 @@ public class TableLineView extends LinearLayout {
                         lineRes = position;
                         table_line_view_iv.setBackgroundResource(lines[position]);
                         if (isOutLine) {
-                            bean.setExttype(position);
+                            bean.setExtcolor(lineColor);
+                            bean.setExttype(lineRes);
                         } else {
-                            bean.setIntype(position);
+                            bean.setIncolor(lineColor);
+                            bean.setIntype(lineRes);
                         }
                         lineListener.onChecked(bean);
                     }
@@ -163,6 +151,30 @@ public class TableLineView extends LinearLayout {
         this.isOutLine = isOutLine;
     }
 
+
+    public void setDefaultConfig(int color, int type) {
+        switch (color) {
+            case Color.BLACK:
+                table_line_radio_blank.setChecked(true);
+                break;
+            case Color.GRAY:
+                table_line_radio_gray.setChecked(true);
+                break;
+            case Color.WHITE:
+                table_line_radio_white.setChecked(true);
+                break;
+        }
+        table_line_view_iv.setBackgroundResource(lines[type]);
+        lineColor = color;
+        lineRes = type;
+        if (isOutLine) {
+            bean.setExtcolor(lineColor);
+            bean.setExttype(lineRes);
+        } else {
+            bean.setIncolor(lineColor);
+            bean.setIntype(lineRes);
+        }
+    }
 
     public int getLineColor() {
         return lineColor;

@@ -30,7 +30,7 @@ public class GridInsideDivider extends RecyclerView.ItemDecoration {
         this.mSpanCount = mSpanCount;
         this.mSpacing = mSpacing;
         this.mLineWidth = mLineWidth;
-        this.mPaint = new Paint(1);
+        this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.mPaint.setStyle(Paint.Style.STROKE);
         this.mPaint.setStrokeWidth(this.mLineWidth);
         this.mPaint.setColor(color);
@@ -51,9 +51,14 @@ public class GridInsideDivider extends RecyclerView.ItemDecoration {
             if (i < j - this.mSpanCount) {
                 i2 = ((View) localObject).getBottom() + localLayoutParams.bottomMargin;
                 f = (i2 + (this.mSpacing + i2)) / 2.0F;
-                DashPathEffect localDashPathEffect = new DashPathEffect(new float[]{6.0F, 4.0F}, 0.0F);
-                this.mPaint.setPathEffect(localDashPathEffect);
-                paramCanvas.drawLine(k - m, f, n + i1, f, this.mPaint);
+                if (mSpacing !=0) {
+                    //绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+                    DashPathEffect localDashPathEffect = new DashPathEffect(new float[]{mSpacing, mSpacing}, 0.0F);
+                    this.mPaint.setPathEffect(localDashPathEffect);
+                    paramCanvas.drawLine(k - m, f, n + i1, f, this.mPaint);
+                }else {
+                    paramCanvas.drawLine(k - m, f, n + i1, f, this.mPaint);
+                }
             }
             k = ((View) localObject).getTop();
             m = localLayoutParams.topMargin;
@@ -62,9 +67,14 @@ public class GridInsideDivider extends RecyclerView.ItemDecoration {
             if (i % this.mSpanCount != this.mSpanCount - 1) {
                 i2 = ((View) localObject).getRight() + localLayoutParams.rightMargin;
                 f = (i2 + (this.mSpacing + i2)) / 2.0F;
-                localObject = new DashPathEffect(new float[]{6.0F, 4.0F}, 0.0F);
-                this.mPaint.setPathEffect((PathEffect) localObject);
-                paramCanvas.drawLine(f, k - m, f, n + i1, this.mPaint);
+                if (mSpacing !=0) {
+                    //绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+                    DashPathEffect localDashPathEffect = new DashPathEffect(new float[]{mSpacing, mSpacing}, 0.0F);
+                    this.mPaint.setPathEffect(localDashPathEffect);
+                    paramCanvas.drawLine(f, k - m, f, n + i1, this.mPaint);
+                }else {
+                    paramCanvas.drawLine(f, k - m, f, n + i1, this.mPaint);
+                }
             }
             i += 1;
         }

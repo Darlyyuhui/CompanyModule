@@ -138,7 +138,20 @@ public class AddRemoveMultipleView extends LinearLayout {
 
     public void setDefaultCount(int cout){
         this.cout = cout;
+        table_lib_result.setText(String.valueOf(cout));
+        if (cout >= max) {
+            table_lib_add.setClickable(false);
+        }else {
+            table_lib_add.setClickable(true);
+        }
+        if (cout <= min) {
+            table_lib_reduce.setClickable(false);
+        } else {
+            table_lib_reduce.setClickable(true);
+        }
     }
+
+
 
     public void setAddRemoveMultipleListener(AddRemoveMultipleListener addRemoveMultipleListener){
         listener = addRemoveMultipleListener;

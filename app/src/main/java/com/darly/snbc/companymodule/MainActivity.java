@@ -298,16 +298,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 SuperNatantLog.d(getClass().getSimpleName() + "行列移除成功");
                 break;
             case TABLE_OUT_LINE:
+                outLine(tableEditBean);
                 SuperNatantLog.d(getClass().getSimpleName() + "外边框修改成功");
                 break;
             case TABLE_IN_LINE:
+                outIn(tableEditBean);
                 SuperNatantLog.d(getClass().getSimpleName() + "内边框修改成功");
                 break;
             default:
                 break;
         }
-
-
     }
 
     /**
@@ -349,7 +349,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      */
     private void outLine(TableEditBean tableEditBean) {
         if (currentTableLayout != null) {
-            currentTableLayout.setOutsideDivider(new GridOutsideDivider(tableEditBean.getCloumn(), 0, 2, tableEditBean.getExtcolor()));
+            currentTableLayout.setDivider(tableEditBean, true);
         }
     }
 
@@ -360,9 +360,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      */
     private void outIn(TableEditBean tableEditBean) {
         if (currentTableLayout != null) {
-            currentTableLayout.setInsideDivider(new GridInsideDivider(tableEditBean.getCloumn(), 0, 2, tableEditBean.getIncolor()));
+            currentTableLayout.setDivider(tableEditBean, false);
         }
     }
+
 
     /**
      * 根据条件建立表格
@@ -374,41 +375,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         final ExcelRecyclerView tableLayout = new ExcelRecyclerView(this);
         currentTableLayout = tableLayout;
         tableLayout.initAdapter(tableEditBean.getRow(), tableEditBean.getCloumn());
-        switch (tableEditBean.getIntype()) {
-            case 0:
-                tableLayout.setInsideDivider(new GridInsideDivider(tableEditBean.getCloumn(), 0, 2, tableEditBean.getIncolor()));
-                break;
-            case 1:
-                tableLayout.setInsideDivider(new GridInsideDivider(tableEditBean.getCloumn(), 0, 4, tableEditBean.getIncolor()));
-                break;
-            case 2:
-                tableLayout.setInsideDivider(new GridInsideDivider(tableEditBean.getCloumn(), 8, 4, tableEditBean.getIncolor()));
-                break;
-            case 3:
-                tableLayout.setInsideDivider(new GridInsideDivider(tableEditBean.getCloumn(), 2, 2, tableEditBean.getIncolor()));
-                break;
+        tableLayout.setDivider(tableEditBean, true);
+        tableLayout.setDivider(tableEditBean, false);
+
+        LinearLayout.LayoutParams localLayoutParams = null;
+        if (isVertical) {
+            //垂直表格
+            tableLayout.setRotation(90);
+            localLayoutParams = new LinearLayout.LayoutParams((int) (SupernatantCfg.getWidth() / 1.5), SupernatantCfg.getWidth() / 2 + 10);
+            localLayoutParams.setMargins(50, 60, 0, 60);
+            tableLayout.setPadding(0, 10, 10, 50);
+        } else {
+            //水平表格
+            tableLayout.setPadding(10, 10, 10, 0);
+            localLayoutParams = new LinearLayout.LayoutParams((int) (SupernatantCfg.getWidth() / 1.5), SupernatantCfg.getWidth() / 2 + 10);
+            localLayoutParams.setMargins(0, 20, 0, 40);
         }
 
-        switch (tableEditBean.getExttype()) {
-            case 0:
-                tableLayout.setOutsideDivider(new GridOutsideDivider(tableEditBean.getCloumn(), 0, 2, tableEditBean.getExtcolor()));
-                break;
-            case 1:
-                tableLayout.setOutsideDivider(new GridOutsideDivider(tableEditBean.getCloumn(), 0, 4, tableEditBean.getExtcolor()));
-                break;
-            case 2:
-                tableLayout.setOutsideDivider(new GridOutsideDivider(tableEditBean.getCloumn(), 8, 4, tableEditBean.getExtcolor()));
-                break;
-            case 3:
-                tableLayout.setOutsideDivider(new GridOutsideDivider(tableEditBean.getCloumn(), 2, 2, tableEditBean.getExtcolor()));
-                break;
-        }
+        localLayoutParams.gravity = 1;
+        id_main_content.addView(tableLayout, localLayoutParams);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                id_main_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
         tableLayout.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
             @Override
             public void itemClick(TextView tv, int position) {
                 //点击输入文字
                 SuperNatantLog.d(getClass().getSimpleName() + "点击输入文字");
                 tv.setText("测试汉字");
+                tableLayout.setStringData("测试汉字", position);
                 //获取焦点
                 tableLayout.setFocusable(true);
                 tableLayout.setFocusableInTouchMode(true);
@@ -416,36 +414,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 tableLayout.requestFocusFromTouch();
                 //直接获取控件
                 currentTableLayout = tableLayout;
+                tableEditManager.resetFocuss(currentTableLayout.getBean());
             }
         });
-        if (isVertical) {
-            //垂直表格
-            LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams(SupernatantCfg.getWidth() / 2, (int) ((SupernatantCfg.getWidth() / 2) * 1.5));
-            localLayoutParams.setMargins(0, 20, 0, 10);
-            localLayoutParams.gravity = 1;
-            Animation anim = AnimationUtils.loadAnimation(this, R.anim.anim_rotate);
-            anim.setFillAfter(true);
-            tableLayout.startAnimation(anim);
-            id_main_content.addView(tableLayout, localLayoutParams);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    id_main_scroll.fullScroll(ScrollView.FOCUS_DOWN);
-                }
-            });
-        } else {
-            //水平表格
-            LinearLayout.LayoutParams localLayoutParams = new LinearLayout.LayoutParams((int) (SupernatantCfg.getWidth() / 1.5), SupernatantCfg.getWidth() / 2);
-            localLayoutParams.setMargins(0, 20, 0, 10);
-            localLayoutParams.gravity = 1;
-            id_main_content.addView(tableLayout, localLayoutParams);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    id_main_scroll.fullScroll(ScrollView.FOCUS_DOWN);
-                }
-            });
-        }
     }
 
 }

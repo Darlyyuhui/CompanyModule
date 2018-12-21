@@ -68,7 +68,7 @@ public class SelectLineView extends Dialog {
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(dm);
         float scale = mContext.getResources().getDisplayMetrics().density;
-        lp.width = dm.widthPixels - (int) (5.0f * scale + 0.5f);
+        lp.width = dm.widthPixels - (int) (2.0f * scale + 0.5f);
         lp.height = LayoutParams.WRAP_CONTENT;
         initView();
     }

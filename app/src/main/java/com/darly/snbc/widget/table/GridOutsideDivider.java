@@ -1,6 +1,7 @@
 package com.darly.snbc.widget.table;
 
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -30,7 +31,7 @@ public class GridOutsideDivider extends RecyclerView.ItemDecoration {
         this.mSpanCount = mSpanCount;
         this.mSpacing = mSpacing;
         this.mLineWidth = mLineWidth;
-        this.mPaint = new Paint(1);
+        this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.mPaint.setStyle(Paint.Style.STROKE);
         this.mPaint.setStrokeWidth(this.mLineWidth);
         this.mPaint.setColor(color);
@@ -43,7 +44,14 @@ public class GridOutsideDivider extends RecyclerView.ItemDecoration {
             View paramView = paramRecyclerView.getChildAt(i - 1);
             RecyclerView.LayoutParams localLayoutParams1 = (RecyclerView.LayoutParams) localView.getLayoutParams();
             RecyclerView.LayoutParams localLayoutParams2 = (RecyclerView.LayoutParams) paramView.getLayoutParams();
-            paramCanvas.drawRect(new RectF(localView.getLeft() - localLayoutParams1.leftMargin - this.mSpacing + this.mLineWidth / 2.0F, localView.getTop() - localLayoutParams1.topMargin - this.mSpacing + this.mLineWidth / 2.0F, paramView.getRight() + localLayoutParams2.rightMargin + this.mSpacing - this.mLineWidth / 2.0F, paramView.getBottom() + localLayoutParams2.bottomMargin + this.mSpacing - this.mLineWidth / 2.0F), this.mPaint);
+            if (mSpacing!=0) {
+                //绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+                DashPathEffect localDashPathEffect = new DashPathEffect(new float[]{mSpacing, mSpacing}, 0.0F);
+                this.mPaint.setPathEffect(localDashPathEffect);
+                paramCanvas.drawRect(new RectF(localView.getLeft() - localLayoutParams1.leftMargin - this.mSpacing + this.mLineWidth / 2.0F, localView.getTop() - localLayoutParams1.topMargin - this.mSpacing + this.mLineWidth / 2.0F, paramView.getRight() + localLayoutParams2.rightMargin + this.mSpacing - this.mLineWidth / 2.0F, paramView.getBottom() + localLayoutParams2.bottomMargin + this.mSpacing - this.mLineWidth / 2.0F), this.mPaint);
+            }else {
+                paramCanvas.drawRect(new RectF(localView.getLeft() - localLayoutParams1.leftMargin - this.mSpacing + this.mLineWidth / 2.0F, localView.getTop() - localLayoutParams1.topMargin - this.mSpacing + this.mLineWidth / 2.0F, paramView.getRight() + localLayoutParams2.rightMargin + this.mSpacing - this.mLineWidth / 2.0F, paramView.getBottom() + localLayoutParams2.bottomMargin + this.mSpacing - this.mLineWidth / 2.0F), this.mPaint);
+            }
         }
     }
 

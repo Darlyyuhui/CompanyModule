@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.newbeiyang.snbc.tablelib.bean.TableEditBean;
 import com.newbeiyang.snbc.tablelib.common.listener.OnTableSelectListener;
 
 /**
@@ -74,6 +75,8 @@ public abstract class BaseTableFragment extends Fragment {
     protected abstract void initListener();
 
     public abstract void setDefaultCount(int column, int row);
+
+    public abstract void resetFocuss(TableEditBean paramer);
 
     public abstract void setOnTableSelectListener(OnTableSelectListener listener);
 

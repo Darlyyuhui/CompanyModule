@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/table_lib_bg"
+    android:background="@drawable/table_lib_select_bg"
     android:orientation="vertical"
     android:padding="1dp">
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/table_lib_show_nor"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
