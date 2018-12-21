@@ -12,7 +12,7 @@ install {
         pom {
             project {
                 packaging 'aar'
-                name 'snbcprint' //项目描述
+                name 'snbctable' //项目描述
                 url siteUrl
                 licenses {
                     license {
